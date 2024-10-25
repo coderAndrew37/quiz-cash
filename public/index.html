@@ -12,12 +12,39 @@
       <br />17 seconds ago
     </div>
 
-    <div class="header">
-      <div class="menu">&#9776; Quiz center</div>
-      <div class="coin-info">
-        <span class="coins">18100</span>
-        <button class="withdrawal-btn">Withdrawals</button>
+    <nav class="navbar">
+      <div class="nav-left">
+        <span class="hamburger" id="menu-toggle">&#9776;</span>
+        <span class="title">Quiz center</span>
       </div>
+      <div class="nav-right">
+        <div class="balance">
+          <img src="public/img/coins.png" alt="coins" class="coins-icon" />
+          <span>18100</span>
+          <button class="withdraw-btn">Withdrawals</button>
+        </div>
+        <small>Keep your coins safe</small>
+      </div>
+    </nav>
+
+    <div id="side-menu" class="side-nav">
+      <div class="profile">
+        <img
+          src="public/img/profile.png"
+          alt="Profile Picture"
+          class="profile-pic"
+        />
+        <p>OmolloAndrew</p>
+        <small>GRADE: 1</small>
+      </div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">User area</a></li>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">F.A.Q</a></li>
+        <li><a href="#">Language</a></li>
+        <li><a href="#">Rules</a></li>
+      </ul>
     </div>
 
     <div class="quiz-container">
@@ -46,6 +73,6 @@
       </div>
     </div>
 
-    <script src="common.js"></script>
+    <script src="/scripts/index.js"></script>
   </body>
 </html>

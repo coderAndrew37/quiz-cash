@@ -28,10 +28,103 @@ body {
   width: 100%;
   max-width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: absolute; /* Make it float */
+  top: 1rem; /* Control vertical spacing */
+  left: 1rem; /* Align to the left */
+}
+
+/* Navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5433cc;
+  padding: 1rem;
+  color: white;
+}
+
+.hamburger {
+  font-size: 2rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+}
+
+.balance {
+  display: flex;
+  align-items: center;
+}
+
+.coins-icon {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.withdraw-btn {
+  background-color: white;
+  color: #5433cc;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.small {
+  display: block;
+  color: #ddd;
+}
+
+/* Sidebar styles */
+.side-nav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #5433cc;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.side-nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.side-nav ul li {
+  padding: 15px;
+}
+
+.side-nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: block;
+}
+
+.side-nav .profile {
+  text-align: center;
+  color: white;
+  padding-bottom: 1rem;
+}
+
+.side-nav .profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+/* Sidebar opening effect */
+.side-nav.open {
+  width: 250px;
 }
 
 /* Header */
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -112,6 +205,7 @@ body {
   gap: 1rem;
   width: 100%;
   max-width: 400px;
+  margin-top: 2rem; /* Adding space between quiz and notification */
 }
 
 .quiz-card {
