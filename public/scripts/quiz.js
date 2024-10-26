@@ -1,9 +1,13 @@
-function loadQuizzes() {
-  fetch("/api/quizzes") // Fetch quizzes from the server
+export function loadQuizzes() {
+  fetch("/api/quizzes") // No topic specified, fetch general quizzes
     .then((response) => response.json())
     .then((quizzes) => {
+      if (!Array.isArray(quizzes)) {
+        throw new TypeError("Expected quizzes to be an array"); // Ensure response is an array
+      }
+
       const quizContainer = document.querySelector(".quiz-container");
-      quizContainer.innerHTML = ""; // Clear any existing content
+      quizContainer.innerHTML = "";
 
       quizzes.forEach((quiz) => {
         const quizCard = `
@@ -12,23 +16,24 @@ function loadQuizzes() {
             <div class="quiz-info">
               <p class="quiz-question">${quiz.question}</p>
               <div class="quiz-details">
-                <span class="quiz-id">#${quiz.id}</span>
+                <span class="quiz-id">#${quiz._id}</span>
                 <span class="quiz-coins">2000 coins</span>
               </div>
-              <button class="quiz-btn">Start Quiz</button>
+              <button class="quiz-btn" onclick="startQuiz('${quiz._id}', '${quiz.topic}')">Start Quiz</button>
             </div>
           </div>
         `;
         quizContainer.innerHTML += quizCard;
-
-        console.log(quizCard);
       });
     })
     .catch((err) => console.error("Error fetching quizzes:", err));
 }
 
-// Initialize the quiz loading function on DOM content loaded
-document.addEventListener("DOMContentLoaded", loadQuizzes);
+// Function to navigate to quiz details page with topic
+export function startQuiz(quizId, quizTopic) {
+  window.location.href = `/quiz.html?id=${quizId}&topic=${encodeURIComponent(
+    quizTopic
+  )}`;
+}
 
-// Initialize the quiz loading function on DOM content loaded
 document.addEventListener("DOMContentLoaded", loadQuizzes);

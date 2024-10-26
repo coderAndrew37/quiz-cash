@@ -23,9 +23,10 @@
     </nav>
 
     <div id="side-menu" class="side-nav">
+      <button id="menu-close" class="menu-close-btn">X</button>
       <div class="profile">
         <img
-          src="public/img/profile.png"
+          src="/images/profile.png"
           alt="Profile Picture"
           class="profile-pic"
         />
@@ -43,32 +44,9 @@
     </div>
 
     <div class="quiz-container">
-      <div class="quiz-card">
-        <img src="/images/quiz-image.jpg" alt="Quiz Image" />
-        <div class="quiz-info">
-          <p class="quiz-question">Where do fish live?</p>
-          <div class="quiz-details">
-            <span class="quiz-id">#965871</span>
-            <span class="quiz-coins">2000 coins</span>
-          </div>
-          <button class="quiz-btn">Start Quiz</button>
-        </div>
-      </div>
-
-      <div class="quiz-card">
-        <img src="/images/quiz-image.jpg" alt="Quiz Image" />
-        <div class="quiz-info">
-          <p class="quiz-question">What is our nearest star?</p>
-          <div class="quiz-details">
-            <span class="quiz-id">#843283</span>
-            <span class="quiz-coins">2000 coins</span>
-          </div>
-          <button class="quiz-btn">Start Quiz</button>
-        </div>
-      </div>
+      <!-- Loaded from the API -->
     </div>
 
-    <script src="/scripts/quiz.js" type="module"></script>
     <script src="/scripts/index.js" type="module"></script>
   </body>
 </html>
