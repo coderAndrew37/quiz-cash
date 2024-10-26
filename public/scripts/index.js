@@ -1,3 +1,5 @@
+//import "./quiz.js";
+
 document.getElementById("menu-toggle").addEventListener("click", function () {
   const sideMenu = document.getElementById("side-menu");
   if (sideMenu.classList.contains("open")) {
