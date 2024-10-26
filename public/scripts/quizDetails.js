@@ -1,7 +1,13 @@
-// quizDetails.js
-let currentIndex = 0;
+let currentIndex = localStorage.getItem("currentIndex")
+  ? parseInt(localStorage.getItem("currentIndex"))
+  : 0;
 let questions = [];
-let score = 0;
+let score = localStorage.getItem("score")
+  ? parseInt(localStorage.getItem("score"))
+  : 0;
+let timerInterval;
+let timeLeft = 60;
+let timerStarted = false;
 
 function getQueryVariable(variable) {
   const query = window.location.search.substring(1);
@@ -15,26 +21,41 @@ function getQueryVariable(variable) {
   return null;
 }
 
-const quizTopic = getQueryVariable("topic");
+const quizTopic = getQueryVariable("topic") || "";
 console.log("Quiz Topic:", quizTopic);
 
 function loadQuiz() {
   const url = quizTopic ? `/api/quizzes?topic=${quizTopic}` : "/api/quizzes";
 
   fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      questions = data;
-      if (questions.length === 0) {
-        alert("No questions available for this topic.");
-      } else {
-        showQuestion(currentIndex);
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
       }
+      return response.json();
     })
-    .catch((error) => console.error("Error loading quiz:", error));
+    .then((data) => {
+      console.log("Quiz data loaded:", data); // Log fetched data
+      questions = data;
+
+      if (!Array.isArray(questions) || questions.length === 0) {
+        console.warn("No questions available.");
+      }
+
+      // Show the first question
+      showQuestion(currentIndex);
+    })
+    .catch((error) => {
+      console.error("Error loading quiz:", error);
+    });
 }
 
 function showQuestion(index) {
+  if (questions.length === 0 || !questions[index]) {
+    console.error("No question data found.");
+    return;
+  }
+
   const questionData = questions[index];
   document.getElementById("quiz-question").textContent = questionData.question;
 
@@ -45,33 +66,89 @@ function showQuestion(index) {
     questionData.correct_answer,
     ...questionData.incorrect_answers,
   ].sort(() => Math.random() - 0.5);
+
   options.forEach((option) => {
     const optionButton = document.createElement("button");
     optionButton.textContent = option;
-    optionButton.onclick = () =>
+    optionButton.style.cursor = "pointer"; // Ensure pointer cursor
+    optionButton.style.border = "2px solid white"; // Outline for visibility
+
+    console.log("Creating option button:", option);
+
+    // Adding a visual indicator when an option is clicked
+    optionButton.onclick = () => {
+      console.log("Option clicked:", option);
+      optionButton.style.backgroundColor = "#4a42d0"; // Change color on click
+      optionButton.style.color = "white"; // Ensure text is visible
+
       checkAnswer(option, questionData.correct_answer);
+      if (!timerStarted) {
+        startCountdown();
+        timerStarted = true;
+      }
+    };
+
     optionsContainer.appendChild(optionButton);
   });
+
+  document.querySelector(".question-number").textContent = `${index + 1}/10.`;
+}
+
+function startCountdown() {
+  const timerElement = document.getElementById("time-left");
+  const circleLoader = document.getElementById("circle-loader");
+
+  timerInterval = setInterval(() => {
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      submitQuiz();
+    } else {
+      timeLeft -= 1;
+      timerElement.textContent = timeLeft;
+      circleLoader.style.clipPath = `inset(${
+        100 - (timeLeft / 60) * 100
+      }% 0 0 0)`;
+    }
+  }, 1000);
 }
 
 function checkAnswer(selectedAnswer, correctAnswer) {
-  if (selectedAnswer === correctAnswer) {
-    score += 50; // Increment by Ksh 50
-    alert("Correct! You earned Ksh 50!");
-  } else {
-    alert("Wrong answer!");
-  }
+  const notificationElement = document.getElementById("notification");
+  const coinsCountElement = document.querySelector(".coins-count");
 
-  loadNextQuiz();
+  if (notificationElement) {
+    if (selectedAnswer === correctAnswer) {
+      score += 50;
+      notificationElement.textContent = "Correct! You earned Ksh 50!";
+      if (coinsCountElement) coinsCountElement.textContent = score;
+    } else {
+      notificationElement.textContent = "Wrong answer!";
+    }
+
+    notificationElement.style.display = "block";
+    setTimeout(() => {
+      notificationElement.style.display = "none";
+      loadNextQuiz();
+    }, 1500);
+  } else {
+    console.error("Notification element not found.");
+  }
 }
 
 function loadNextQuiz() {
   currentIndex++;
   if (currentIndex < questions.length) {
+    localStorage.setItem("currentIndex", currentIndex);
     showQuestion(currentIndex);
   } else {
-    alert(`Quiz complete! You earned a total of Ksh ${score}`);
+    submitQuiz();
   }
+}
+
+function submitQuiz() {
+  clearInterval(timerInterval);
+  alert(`Quiz complete! You earned a total of Ksh ${score}`);
+  localStorage.clear();
 }
 
 document.addEventListener("DOMContentLoaded", loadQuiz);
