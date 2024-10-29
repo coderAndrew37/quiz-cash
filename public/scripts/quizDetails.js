@@ -35,14 +35,13 @@ function loadQuiz() {
       return response.json();
     })
     .then((data) => {
-      console.log("Quiz data loaded:", data); // Log fetched data
+      console.log("Quiz data loaded:", data);
       questions = data;
 
       if (!Array.isArray(questions) || questions.length === 0) {
         console.warn("No questions available.");
       }
 
-      // Show the first question
       showQuestion(currentIndex);
     })
     .catch((error) => {
@@ -60,7 +59,7 @@ function showQuestion(index) {
   document.getElementById("quiz-question").textContent = questionData.question;
 
   const optionsContainer = document.getElementById("quiz-options");
-  optionsContainer.innerHTML = ""; // Clear previous options
+  optionsContainer.innerHTML = "";
 
   const options = [
     questionData.correct_answer,
@@ -70,16 +69,15 @@ function showQuestion(index) {
   options.forEach((option) => {
     const optionButton = document.createElement("button");
     optionButton.textContent = option;
-    optionButton.style.cursor = "pointer"; // Ensure pointer cursor
-    optionButton.style.border = "2px solid white"; // Outline for visibility
+    optionButton.style.cursor = "pointer";
+    optionButton.style.border = "2px solid white";
 
     console.log("Creating option button:", option);
 
-    // Adding a visual indicator when an option is clicked
     optionButton.onclick = () => {
       console.log("Option clicked:", option);
-      optionButton.style.backgroundColor = "#4a42d0"; // Change color on click
-      optionButton.style.color = "white"; // Ensure text is visible
+      optionButton.style.backgroundColor = "#4a42d0";
+      optionButton.style.color = "white";
 
       checkAnswer(option, questionData.correct_answer);
       if (!timerStarted) {
@@ -148,7 +146,10 @@ function loadNextQuiz() {
 function submitQuiz() {
   clearInterval(timerInterval);
   alert(`Quiz complete! You earned a total of Ksh ${score}`);
+
+  // Redirect to the user area page with the score as a query parameter
   localStorage.clear();
+  window.location.href = `userarea.html?score=${score}`;
 }
 
 document.addEventListener("DOMContentLoaded", loadQuiz);

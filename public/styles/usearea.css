@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #4a47a3;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.menu-icon {
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.user-info {
+  text-align: center;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.user-email {
+  font-size: 0.9em;
+  color: gray;
+}
+
+.balance-section {
+  background: #f4f4f9;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.balance-info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.balance-item {
+  text-align: center;
+}
+
+.label {
+  display: block;
+  font-size: 0.9em;
+  color: gray;
+}
+
+.value {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.action-buttons {
+  margin-top: 15px;
+}
+
+.action-buttons button {
+  background: #4a47a3;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  width: 48%;
+}
+
+.submission-form {
+  background: #f4f4f9;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-field {
+  width: 48%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.referral-section {
+  color: #4a47a3;
+  font-weight: bold;
+}

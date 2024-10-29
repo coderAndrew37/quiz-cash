@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Area Clone</title>
+    <link rel="stylesheet" href="/styles/variables.css" />
+    <link rel="stylesheet" href="/styles/usearea.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="menu-icon" id="menu-toggle" aria-label="Open sidebar">
+          &#9776; Menu
+        </div>
+        <div class="user-info">
+          <img src="user-avatar.png" alt="User Avatar" class="avatar" />
+          <div class="username">OmolloAndrew</div>
+          <div class="user-email">omolloandrew3@gmail.com</div>
+        </div>
+      </header>
+
+      <section class="balance-section">
+        <div class="balance-info">
+          <div class="balance-item">
+            <span class="label">Total gold coins:</span>
+            <span class="value">41700</span>
+          </div>
+          <div class="balance-item">
+            <span class="label">Withdrawable:</span>
+            <span class="value">$41.7</span>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button onclick="redirectToQuiz()">Continue to answer</button>
+          <button onclick="withdraw()">Withdraw money</button>
+        </div>
+      </section>
+
+      <section class="submission-form">
+        <h2>Complete the information and get $10</h2>
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Area code"
+            id="area-code"
+            class="input-field"
+          />
+          <input
+            type="text"
+            placeholder="Please enter your mobile number"
+            id="mobile-number"
+            class="input-field"
+          />
+        </div>
+        <button onclick="submitForm()">Submit</button>
+      </section>
+
+      <section class="referral-section">
+        <p>Invite friends to get rewards</p>
+      </section>
+    </div>
+
+    <div id="side-menu" class="side-nav" aria-label="Sidebar navigation">
+      <button id="menu-close" class="menu-close-btn" aria-label="Close sidebar">
+        X
+      </button>
+      <div class="profile">
+        <img
+          src="/images/profile.png"
+          alt="Profile Picture"
+          class="profile-pic"
+        />
+        <p>OmolloAndrew</p>
+        <small>GRADE: 1</small>
+      </div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">User area</a></li>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">F.A.Q</a></li>
+        <li><a href="#">Language</a></li>
+        <li><a href="#">Rules</a></li>
+      </ul>
+    </div>
+
+    <script src="/scripts/menuToggle.js"></script>
+    <script src="/scripts/userarea.js"></script>
+  </body>
+</html>

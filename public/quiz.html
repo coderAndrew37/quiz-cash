@@ -4,12 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Details</title>
+    <link rel="stylesheet" href="/styles/variables.css" />
     <link rel="stylesheet" href="/styles/quiz.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
   </head>
   <body>
     <div class="quiz-details-container">
       <div class="quiz-header">
-        <div class="menu-icon">☰</div>
+        <div class="menu-icon" id="menu-toggle" aria-label="Open sidebar">
+          ☰
+        </div>
       </div>
       <div class="quiz-content">
         <div class="question-card">
@@ -17,14 +25,10 @@
             <img src="/images/quiz-image.jpg" alt="Question Icon" />
           </div>
           <div class="question-text">
-            <h2>Do Your best!</h2>
-            <div class="question-details">
-              <span class="question-number">1/10.</span>
-              <!-- Timer with circular style applied directly -->
-              <div class="timer" id="time-left">60</div>
-            </div>
-            <p class="question-title" id="quiz-question"></p>
+            <h2 class="question-title" id="quiz-question">Quiz Question</h2>
+            <div class="timer" id="time-left">60</div>
           </div>
+          <div class="question-number">1/10</div>
           <div class="gold-coins">
             <span>Your gold coins:</span>
             <span class="coins-count">0</span>
@@ -34,8 +38,36 @@
       </div>
 
       <div id="notification" class="notification"></div>
+
+      <div id="side-menu" class="side-nav" aria-label="Sidebar navigation">
+        <button
+          id="menu-close"
+          class="menu-close-btn"
+          aria-label="Close sidebar"
+        >
+          X
+        </button>
+        <div class="profile">
+          <img
+            src="/images/profile.png"
+            alt="Profile Picture"
+            class="profile-pic"
+          />
+          <p>OmolloAndrew</p>
+          <small>GRADE: 1</small>
+        </div>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">User area</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">F.A.Q</a></li>
+          <li><a href="#">Language</a></li>
+          <li><a href="#">Rules</a></li>
+        </ul>
+      </div>
     </div>
 
+    <script src="/scripts/menuToggle.js"></script>
     <script src="/scripts/quizDetails.js"></script>
   </body>
 </html>

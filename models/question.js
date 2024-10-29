@@ -8,4 +8,19 @@ const questionSchema = new mongoose.Schema({
   incorrect_answers: [{ type: String }],
 });
 
+//validating the question model using joi
+
+const Joi = require("joi");
+
+const validateQuestion = (question) => {
+  const schema = Joi.object({
+    topic: Joi.string().required(),
+    question: Joi.string().required(),
+    correct_answer: Joi.string().required(),
+    incorrect_answers: Joi.array().min(1).required(),
+  });
+
+  return schema.validate(question);
+};
+
 module.exports = mongoose.model("Question", questionSchema);
