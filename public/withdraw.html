@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Withdrawing Money</title>
+    <link rel="stylesheet" href="/styles/homepage.css" />
+    <link rel="stylesheet" href="/styles/withdraw.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="hamburger" id="menu-toggle" aria-label="Open sidebar">☰</div>
+      <div class="title">Withdrawing Money</div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div id="side-menu" class="side-nav" aria-label="Sidebar navigation">
+      <button id="menu-close" class="menu-close-btn" aria-label="Close sidebar">
+        X
+      </button>
+      <div class="profile">
+        <img
+          src="/images/profile.png"
+          alt="Profile Picture"
+          class="profile-pic"
+        />
+        <p>OmolloAndrew</p>
+        <small>GRADE: 1</small>
+      </div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/userarea.html">User area</a></li>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">F.A.Q</a></li>
+        <li><a href="#">Language</a></li>
+        <li><a href="#">Rules</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+      <h2>Withdrawing Money</h2>
+      <p>Choose a system for withdrawing money</p>
+      <div class="grid-container">
+        <div class="grid-item">
+          <a href="paynext.html?type=card">
+            <img src="/images/card.png" alt="Bank Card" />
+            <p>To a Bank Card</p>
+          </a>
+        </div>
+        <div class="grid-item">
+          <a href="paynext.html?type=bitcoin">
+            <img src="/images/bitcoin.png" alt="Bitcoin Account" />
+            <p>To Bitcoin Account</p>
+          </a>
+        </div>
+        <div class="grid-item">
+          <a href="paynext.html?type=phone">
+            <img src="/images/phone.png" alt="Phone Bill" />
+            <p>To Phone Bill</p>
+          </a>
+        </div>
+        <div class="grid-item">
+          <a href="paynext.html?type=paypal">
+            <img src="/images/paypal.png" alt="PayPal" />
+            <p>To PayPal</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="rec-text">
+        <p>
+          Invite friends to help you earn money and get an extra 40% of your
+          friends' income!
+        </p>
+      </div>
+      <div class="social-sharing">
+        <button onclick="share_wa()">WhatsApp</button>
+        <button onclick="share_ms()">Messenger</button>
+        <button onclick="share_fb()">Facebook</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; earnease.shop 2007-2024</p>
+    </footer>
+
+    <script src="/scripts/menuToggle.js"></script>
+    <script src="/scripts/withdraw.js"></script>
+  </body>
+</html>
