@@ -72,10 +72,7 @@ function showQuestion(index) {
     optionButton.style.cursor = "pointer";
     optionButton.style.border = "2px solid white";
 
-    console.log("Creating option button:", option);
-
     optionButton.onclick = () => {
-      console.log("Option clicked:", option);
       optionButton.style.backgroundColor = "#4a42d0";
       optionButton.style.color = "white";
 
@@ -94,8 +91,6 @@ function showQuestion(index) {
 
 function startCountdown() {
   const timerElement = document.getElementById("time-left");
-  const circleLoader = document.getElementById("circle-loader");
-
   timerInterval = setInterval(() => {
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
@@ -103,9 +98,6 @@ function startCountdown() {
     } else {
       timeLeft -= 1;
       timerElement.textContent = timeLeft;
-      circleLoader.style.clipPath = `inset(${
-        100 - (timeLeft / 60) * 100
-      }% 0 0 0)`;
     }
   }, 1000);
 }
@@ -116,8 +108,8 @@ function checkAnswer(selectedAnswer, correctAnswer) {
 
   if (notificationElement) {
     if (selectedAnswer === correctAnswer) {
-      score += 50;
-      notificationElement.textContent = "Correct! You earned Ksh 50!";
+      score += 200;
+      notificationElement.textContent = "Correct! You earned 200 coins!";
       if (coinsCountElement) coinsCountElement.textContent = score;
     } else {
       notificationElement.textContent = "Wrong answer!";
@@ -145,11 +137,17 @@ function loadNextQuiz() {
 
 function submitQuiz() {
   clearInterval(timerInterval);
-  alert(`Quiz complete! You earned a total of Ksh ${score}`);
-
-  // Redirect to the user area page with the score as a query parameter
+  alert(`Quiz complete! You earned a total of ${score} coins!`);
   localStorage.clear();
   window.location.href = `userarea.html?score=${score}`;
+}
+
+function redirectToHome() {
+  window.location.href = "/";
+}
+
+function redirectToWithdraw() {
+  window.location.href = "/withdraw.html";
 }
 
 document.addEventListener("DOMContentLoaded", loadQuiz);

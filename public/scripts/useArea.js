@@ -1,13 +1,17 @@
+function redirectToHome() {
+  window.location.href = "/";
+}
+
+function redirectToWithdraw() {
+  window.location.href = "/withdraw.html";
+}
+
 function redirectToQuiz() {
-  // Redirect to quiz page or URL
   window.location.href = "https://your-site.com/quiz";
 }
 
 function withdraw() {
-  // Handle withdraw action (e.g., show alert or redirect)
   alert("You have requested to withdraw your funds.");
-  // Redirect to withdraw page if required
-  // window.location.href = "https://your-site.com/withdraw";
 }
 
 function submitForm() {
@@ -19,7 +23,5 @@ function submitForm() {
     return;
   }
 
-  // Perform form submission action
   alert(`Submitted! Area Code: ${areaCode}, Mobile Number: ${mobileNumber}`);
-  // Optionally, send data to server via AJAX or redirect after submission
 }
