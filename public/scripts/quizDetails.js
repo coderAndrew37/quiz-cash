@@ -25,7 +25,9 @@ const quizTopic = getQueryVariable("topic") || "";
 console.log("Quiz Topic:", quizTopic);
 
 function loadQuiz() {
-  const url = quizTopic ? `/api/quizzes?topic=${quizTopic}` : "/api/quizzes";
+  const url = quizTopic
+    ? `/api/quizzes/public?topic=${quizTopic}`
+    : "/api/quizzes/public";
 
   fetch(url)
     .then((response) => {

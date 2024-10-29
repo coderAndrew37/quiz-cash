@@ -9,6 +9,7 @@ const {
 } = require("./routes/htmlRoutes.js");
 
 const app = express();
+app.use(express.json()); // Add this middleware to parse JSON
 
 app.use(express.static("public")); // Serve static files like CSS and JS
 
