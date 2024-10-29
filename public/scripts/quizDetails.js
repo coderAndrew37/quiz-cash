@@ -138,8 +138,16 @@ function loadNextQuiz() {
 function submitQuiz() {
   clearInterval(timerInterval);
   alert(`Quiz complete! You earned a total of ${score} coins!`);
-  localStorage.clear();
-  window.location.href = `userarea.html?score=${score}`;
+
+  // Store the earned coins in localStorage
+  localStorage.setItem("quizCoinsEarned", score);
+
+  // Remove specific keys without clearing the entire localStorage
+  localStorage.removeItem("currentIndex");
+  localStorage.removeItem("score");
+
+  // Redirect to the user area page
+  window.location.href = `userarea.html`;
 }
 
 function redirectToHome() {
