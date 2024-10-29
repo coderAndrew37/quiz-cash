@@ -19,13 +19,22 @@ html {
 
 /* Main content of the quiz */
 .quiz-content {
-  background-color: #4031a7; /* Dark blue for the card background */
+  background-color: #4031a7;
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   padding: 25px;
   width: 400px;
   color: white;
   text-align: center;
+}
+
+/* Updated question header with timer and icon alignment */
+.question-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 /* Icon for question */
@@ -36,23 +45,25 @@ html {
   background-color: #ffb400;
 }
 
-/* Text information on the question header */
-.question-info {
+/* Timer styling */
+.timer {
+  width: 60px;
+  height: 60px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
-}
-
-.question-number {
-  color: #5b53ff;
-  font-size: 14px;
-  margin-right: 5px;
-}
-
-.question-title {
   font-weight: bold;
-  font-size: 18px;
-  margin-top: 5px;
+  font-size: 20px;
+  color: #5b53ff;
+  background-color: white;
+  border: 3px solid #5b53ff;
+  border-radius: 50%;
+}
+
+/* Question details styling */
+.question-details {
+  text-align: center;
+  margin-top: 15px;
 }
 
 /* Gold coins section */
@@ -88,103 +99,15 @@ html {
   background-color: #4a42d0;
 }
 
-/* Adjusting the button appearance */
-.options button {
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Add styles for the circular timer */
-.timer-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  color: #5b53ff;
-  font-weight: bold;
-  font-size: 22px;
-  border: 3px solid #5b53ff;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  position: relative;
-}
-
-/* For circular progress effect */
-.timer-progress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  clip: rect(0, 60px, 60px, 30px);
-}
-
-.timer-progress .fill {
-  background: #5b53ff;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  transform: rotate(0deg);
-  transform-origin: center;
-}
-
 /* Adjust menu icon positioning */
 .menu-icon {
   position: absolute;
   top: 20px;
   left: 20px;
-  font-size: 24px; /* Slightly larger */
+  font-size: 24px;
   cursor: pointer;
   color: white;
   z-index: 10;
-}
-
-/* Adjust question header to make room for menu icon */
-.question-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-left: 50px; /* Leave space for menu icon */
-}
-
-/* Circle loader inside timer */
-#circle-loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 5px solid #5b53ff;
-  clip-path: inset(0 0 0 0);
-  transform-origin: center;
-  transition: clip-path 1s linear;
-}
-
-#time-left {
-  font-weight: bold;
-  font-size: 22px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
-#circle-loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 5px solid #5b53ff;
-  clip-path: inset(0 0 0 0);
-  transform-origin: center;
-  transition: clip-path 1s linear;
 }
 
 /* Notification */
@@ -211,48 +134,6 @@ html {
   }
 }
 
-/* Container for the question text with timer */
-.question-text {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  color: #333;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-/* Circular timer styling */
-.timer {
-  position: absolute;
-  right: 15px; /* Align to the right inside question-text */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  font-weight: bold;
-  font-size: 22px;
-  color: #5b53ff;
-  background-color: white;
-  border: 3px solid #5b53ff;
-  border-radius: 50%;
-  clip-path: inset(0 0 0 0);
-  transition: clip-path 1s linear;
-}
-
-/* Animation for circular progress effect */
-@keyframes progress {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
-  to {
-    clip-path: inset(0 0 100% 0);
-  }
-}
-
 /* Container for the whole quiz */
 .quiz-details-container {
   display: flex;
@@ -262,60 +143,6 @@ html {
   background: linear-gradient(135deg, #5b53ff 0%, #4a42d0 100%);
   color: white;
   position: relative;
-}
-
-/* Header section */
-.quiz-header {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  font-size: 18px;
-  cursor: pointer;
-  color: white;
-}
-
-/* Main content of the quiz */
-.quiz-content {
-  background-color: #4031a7;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  padding: 25px;
-  width: 400px;
-  color: white;
-  text-align: center;
-}
-
-/* Icon for question */
-.question-icon img {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  background-color: #ffb400;
-}
-
-/* Timer styling */
-.timer {
-  position: absolute;
-  right: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  font-weight: bold;
-  font-size: 22px;
-  color: #5b53ff;
-  background-color: white;
-  border: 3px solid #5b53ff;
-  border-radius: 50%;
-  clip-path: inset(0 0 0 0);
-  transition: clip-path 1s linear;
-}
-
-.question-number {
-  color: #5b53ff;
-  font-size: 14px;
-  margin-top: 8px;
 }
 
 /* Sidebar styles */
@@ -374,4 +201,17 @@ html {
   position: absolute;
   top: 10px;
   right: 20px;
+}
+
+@media (max-width: 600px) {
+  .menu-icon {
+    top: 8px; /* Reduce top spacing */
+    left: 10px; /* Reduce left spacing */
+    font-size: 20px; /* Slightly smaller icon size for smaller screens */
+  }
+
+  .quiz-content {
+    width: 90%; /* Make the quiz content width responsive */
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
 }
