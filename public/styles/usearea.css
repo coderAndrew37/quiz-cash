@@ -1,3 +1,4 @@
+/* Base reset styles */
 * {
   margin: 0;
   padding: 0;
@@ -5,24 +6,29 @@
   font-family: Arial, sans-serif;
 }
 
+/* Body layout */
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #4a47a3;
+  background: linear-gradient(135deg, #5b53ff 0%, #4a42d0 100%);
+  color: white;
 }
 
+/* Main container for user area */
 .container {
   width: 100%;
   max-width: 400px;
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #4031a7;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
+  color: white;
 }
 
+/* Header styling with menu icon */
 header {
   display: flex;
   justify-content: space-between;
@@ -31,10 +37,12 @@ header {
 }
 
 .menu-icon {
-  font-size: 1.2em;
+  font-size: 24px;
   cursor: pointer;
+  color: white;
 }
 
+/* User information section */
 .user-info {
   text-align: center;
 }
@@ -52,11 +60,12 @@ header {
 
 .user-email {
   font-size: 0.9em;
-  color: gray;
+  color: #ccccff;
 }
 
+/* Balance section styling */
 .balance-section {
-  background: #f4f4f9;
+  background: #5b53ff;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
@@ -74,7 +83,7 @@ header {
 .label {
   display: block;
   font-size: 0.9em;
-  color: gray;
+  color: #dcdcdc;
 }
 
 .value {
@@ -82,23 +91,9 @@ header {
   font-size: 1.2em;
 }
 
-.action-buttons {
-  margin-top: 15px;
-}
-
-.action-buttons button {
-  background: #4a47a3;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 5px;
-  width: 48%;
-}
-
+/* Form styling */
 .submission-form {
-  background: #f4f4f9;
+  background: #5b53ff;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
@@ -117,7 +112,80 @@ header {
   border-radius: 5px;
 }
 
+/* Referral section styling */
 .referral-section {
-  color: #4a47a3;
+  color: #ffcc00;
   font-weight: bold;
+}
+
+/* Sidebar styling */
+.side-nav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #5433cc;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.side-nav.open {
+  width: 250px;
+}
+
+.side-nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.side-nav ul li {
+  padding: 15px;
+}
+
+.side-nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: block;
+}
+
+.side-nav .profile {
+  text-align: center;
+  color: white;
+  padding-bottom: 1rem;
+}
+
+.side-nav .profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.menu-close-btn {
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #e5092e;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .menu-icon {
+    font-size: 20px;
+    top: 10px;
+    left: 10px;
+  }
+
+  .container {
+    width: 90%;
+    padding: 20px;
+  }
 }
