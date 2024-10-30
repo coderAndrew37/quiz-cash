@@ -6,20 +6,19 @@ const auth = require("../middleware/auth");
 // Public route for getting quiz questions
 router.get("/public", async (req, res) => {
   const { topic } = req.query;
-  console.log("Fetching quizzes with topic:", topic); // Debug statement
+  console.log("Fetching quizzes with topic:", topic);
 
   try {
     let questions;
     if (topic) {
-      questions = await Question.aggregate([
-        { $match: { topic: { $regex: new RegExp(`^${topic}$`, "i") } } },
-        { $sample: { size: 10 } },
-      ]);
+      questions = await Question.find({
+        topic: new RegExp(`^${topic}$`, "i"),
+      }).limit(10);
     } else {
-      questions = await Question.aggregate([{ $sample: { size: 10 } }]);
+      questions = await Question.find().limit(10);
     }
 
-    console.log("Questions retrieved:", questions); // Debug log
+    console.log("Questions retrieved:", questions);
     res.json(questions);
   } catch (error) {
     console.error("Error fetching questions:", error);
