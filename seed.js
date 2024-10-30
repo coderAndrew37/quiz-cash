@@ -433,17 +433,19 @@ async function seedQuestions() {
   } catch (error) {
     console.error("Error seeding database:", error);
   } finally {
-    // Ensure the connection is closed after seeding
-    mongoose.connection.close();
+    mongoose.connection.close(); // Ensure the connection is closed after seeding
   }
 }
 
 // Connect to MongoDB and run the seed function
 mongoose
-  .connect("mongodb://localhost:27017/quiz_app", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://quiz-app:Pizza123@cluster0.a2oux.mongodb.net/quizDatabase?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => seedQuestions())
   .catch((error) => {
     console.error("Database connection error:", error);
