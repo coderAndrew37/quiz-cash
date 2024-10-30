@@ -6,6 +6,10 @@ function redirectToWithdraw() {
   window.location.href = "/withdraw.html";
 }
 
+function redirectToQuiz() {
+  window.location.href = "https://your-site.com/quiz";
+}
+
 function withdraw() {
   alert("You have requested to withdraw your funds.");
 }
