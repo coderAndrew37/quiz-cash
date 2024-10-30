@@ -14,6 +14,8 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("username", data.username); // Assuming username is returned in response
+      localStorage.setItem("email", email); // Store email
       window.location.href = "/"; // Redirect to homepage on successful login
     } else {
       alert(data.message || "Login failed.");

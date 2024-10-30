@@ -17,6 +17,8 @@ document
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("token", data.token);
+        localStorage.setItem("username", name); // Store username
+        localStorage.setItem("email", email); // Store email
         window.location.href = "/"; // Redirect to homepage after registration
       } else {
         alert(data.message || "Registration failed.");
