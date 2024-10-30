@@ -1,3 +1,4 @@
+import { baseURL } from "./constants";
 document
   .getElementById("register-form")
   .addEventListener("submit", async (e) => {
@@ -8,7 +9,7 @@ document
     const password = document.getElementById("password").value;
 
     try {
-      const response = await fetch("/api/users/register", {
+      const response = await fetch(`${baseURL}api/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),

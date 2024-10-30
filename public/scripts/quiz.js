@@ -1,6 +1,7 @@
+import { baseURL } from "./constants";
 export async function loadQuizzes() {
   try {
-    const response = await fetch("/api/quizzes/public");
+    const response = await fetch(`${baseURL}api/quizzes/public`);
     if (!response.ok) throw new Error("Error fetching quizzes");
 
     const quizzes = await response.json();

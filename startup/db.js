@@ -1,17 +1,18 @@
+// db.js
 const mongoose = require("mongoose");
-const winston = require("winston");
+const logger = require("./logger"); // Use custom logger instead of winston directly
 
 module.exports = function () {
-  const db = process.env.MONGODB_URI; // Get the MongoDB URI from environment variables
+  const db = process.env.MONGODB_URI;
   if (!db) {
     throw new Error("FATAL ERROR: MONGODB_URI is not defined.");
   }
 
   mongoose
-    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => winston.info(`Connected to MongoDB at ${db}`))
+    .connect(db)
+    .then(() => logger.info(`Connected to MongoDB at ${db}`))
     .catch((err) => {
-      winston.error(`Could not connect to MongoDB: ${err.message}`);
-      process.exit(1); // Exit the process with failure
+      logger.error(`Could not connect to MongoDB: ${err.message}`);
+      process.exit(1);
     });
 };
