@@ -22,3 +22,5 @@
 2024-10-30T07:51:27.617Z [INFO]: Server running on port 5000
 2024-10-30T07:53:01.830Z [INFO]: Server running on port 5000
 2024-10-30T08:03:44.100Z [INFO]: Server running on port 5000
+2024-10-30T08:04:04.030Z [INFO]: Server running on port 5000
+2024-10-30T08:04:08.643Z [INFO]: Connected to MongoDB at mongodb+srv://quiz-app:Pizza123@cluster0.a2oux.mongodb.net/quizDatabase?retryWrites=true&w=majority
