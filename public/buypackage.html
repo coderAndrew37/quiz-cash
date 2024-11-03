@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy Package</title>
+    <link rel="stylesheet" href="/styles/homepage.css" />
+    <link rel="stylesheet" href="/styles/form.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="hamburger" id="menu-toggle" aria-label="Open sidebar">☰</div>
+      <div class="title">Buy Package</div>
+    </div>
+
+    <div class="container">
+      <h2>Purchase a Package to Enable Withdrawal</h2>
+      <p>
+        Enter your desired withdrawal amount (in USD) to see the required
+        package.
+      </p>
+
+      <!-- Input form for the withdrawal amount -->
+      <form id="package-form">
+        <div class="form-group">
+          <label for="withdrawal-amount"
+            >Desired Withdrawal Amount (USD):</label
+          >
+          <input
+            type="number"
+            id="withdrawal-amount"
+            name="withdrawal-amount"
+            placeholder="Enter amount in USD"
+            required
+            min="1"
+          />
+        </div>
+        <div class="form-group">
+          <label>Required Package Cost:</label>
+          <p id="package-cost" class="package-cost">
+            Please enter an amount above.
+          </p>
+        </div>
+        <button type="submit" class="form-btn">Proceed to Buy Package</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("withdrawal-amount")
+        .addEventListener("input", function () {
+          const amount = parseFloat(this.value);
+          const packageCostElement = document.getElementById("package-cost");
+
+          if (isNaN(amount) || amount <= 0) {
+            packageCostElement.textContent = "Please enter a valid amount.";
+            return;
+          }
+
+          // Determine required package cost based on the withdrawal amount
+          let packageCost;
+          if (amount > 0 && amount <= 50) {
+            packageCost = 10;
+          } else if (amount > 50 && amount <= 100) {
+            packageCost = 20;
+          } else if (amount > 100 && amount <= 500) {
+            packageCost = 50;
+          } else if (amount > 500) {
+            packageCost = 100;
+          }
+
+          packageCostElement.textContent = `Required Package Cost: $${packageCost}`;
+        });
+
+      // Form submission handler
+      document
+        .getElementById("package-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const amount = parseFloat(
+            document.getElementById("withdrawal-amount").value
+          );
+          if (isNaN(amount) || amount <= 0) {
+            alert("Please enter a valid withdrawal amount.");
+            return;
+          }
+
+          const packageCostText =
+            document.getElementById("package-cost").textContent;
+          alert(`You need to purchase a package. ${packageCostText}`);
+
+          // Redirect to payment processing or package details page
+          window.location.href = "/processPayment.html";
+        });
+    </script>
+  </body>
+</html>

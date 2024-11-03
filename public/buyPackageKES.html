@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy Package in KES</title>
+    <link rel="stylesheet" href="/styles/homepage.css" />
+    <link rel="stylesheet" href="/styles/form.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="hamburger" id="menu-toggle" aria-label="Open sidebar">☰</div>
+      <div class="title">Buy Package in KES</div>
+    </div>
+
+    <div class="container">
+      <h2>Purchase a Package to Enable Withdrawal</h2>
+      <p>
+        To complete your withdrawal, please proceed with purchasing the required
+        package.
+      </p>
+
+      <div class="form-group">
+        <label>Required Package Cost (KES):</label>
+        <p id="package-cost-display">Loading...</p>
+      </div>
+
+      <button id="proceed-payment" class="form-btn">Proceed to Payment</button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const packageCost = localStorage.getItem("requiredPackageCost") || "0";
+        const withdrawalMethod =
+          localStorage.getItem("withdrawalMethod") || "phone";
+        const packageCostDisplay = document.getElementById(
+          "package-cost-display"
+        );
+
+        packageCostDisplay.textContent = `KES ${packageCost}`;
+
+        document
+          .getElementById("proceed-payment")
+          .addEventListener("click", function () {
+            alert(
+              `Redirecting to payment gateway to pay KES ${packageCost} for ${withdrawalMethod} withdrawal...`
+            );
+
+            // Simulate payment success and redirect to confirmation
+            window.location.href =
+              "/confirmation.html?method=" + withdrawalMethod;
+          });
+      });
+    </script>
+  </body>
+</html>
