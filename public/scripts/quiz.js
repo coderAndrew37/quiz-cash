@@ -1,6 +1,8 @@
 export async function loadQuizzes() {
+  const baseUrl = process.env.BASE_URL || ""; // Fallback to empty string if not set
+
   try {
-    const response = await fetch("/api/quizzes/public");
+    const response = await fetch(`${baseUrl}/api/quizzes/public`);
     if (!response.ok) throw new Error("Error fetching quizzes");
 
     const quizzes = await response.json();
