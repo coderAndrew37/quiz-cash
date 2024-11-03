@@ -439,13 +439,10 @@ async function seedQuestions() {
 
 // Connect to MongoDB and run the seed function
 mongoose
-  .connect(
-    "mongodb+srv://quiz-app:Pizza123@cluster0.a2oux.mongodb.net/quizDatabase?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect({
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => seedQuestions())
   .catch((error) => {
     console.error("Database connection error:", error);
