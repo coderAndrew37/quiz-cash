@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phone Withdrawal</title>
+    <link rel="stylesheet" href="/styles/homepage.css" />
+    <link rel="stylesheet" href="/styles/form.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="hamburger" id="menu-toggle" aria-label="Open sidebar">☰</div>
+      <div class="title">Phone Withdrawal</div>
+    </div>
+
+    <div class="container">
+      <h2>Enter Your Phone Number and Withdrawal Amount</h2>
+      <p>To proceed with your withdrawal, please enter your details below.</p>
+
+      <form id="phone-withdrawal-form">
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="e.g., +254700000000"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount to Withdraw (KES):</label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            placeholder="Enter amount in KES"
+            required
+          />
+        </div>
+        <button type="submit" class="form-btn">Proceed with Withdrawal</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("phone-withdrawal-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const phone = document.getElementById("phone").value;
+          const amount = parseFloat(document.getElementById("amount").value);
+          const userBalance =
+            parseFloat(localStorage.getItem("quizCoinsEarned")) || 0;
+
+          if (!phone || isNaN(amount) || amount <= 0) {
+            alert("Please enter a valid phone number and withdrawal amount.");
+            return;
+          }
+
+          // Check if the user has enough balance (conversion from coins to KES)
+          const KES_RATE = 0.11;
+          const maxWithdrawableKES = (userBalance * KES_RATE).toFixed(2);
+
+          if (amount > maxWithdrawableKES) {
+            alert(
+              `Insufficient balance. Maximum you can withdraw is KES ${maxWithdrawableKES}`
+            );
+            return;
+          }
+
+          // Show the package purchase prompt
+          const confirmPackage = confirm(
+            "To withdraw, you need to purchase a package. Click OK to proceed to the package page."
+          );
+          if (confirmPackage) {
+            window.location.href = "/buyPackage.html"; // Redirect to package purchase page
+          } else {
+            alert("Withdrawal cannot proceed without a package purchase.");
+          }
+        });
+    </script>
+  </body>
+</html>

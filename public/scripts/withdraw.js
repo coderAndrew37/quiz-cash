@@ -1,41 +1,48 @@
-// Sidebar Menu Toggle
-function toggleMenu() {
-  document.getElementById("menu").classList.toggle("open");
+// Assume user's balance is retrieved and available in localStorage as "userBalance"
+const MIN_WITHDRAWAL_AMOUNT = 50; // Minimum withdrawal threshold in USD
+
+// Helper function to check minimum balance requirement
+function checkMinimumBalance() {
+  const userBalance = parseFloat(localStorage.getItem("userBalance")) || 0;
+  return userBalance >= MIN_WITHDRAWAL_AMOUNT;
 }
 
-// Navigation Function (client-side navigation using HTML files)
-function navigateTo(page) {
-  window.location.href = page;
+// Withdrawal options - redirect based on balance
+function initiateWithdrawal(type) {
+  if (checkMinimumBalance()) {
+    // Proceed to the withdrawal form with the chosen option
+    window.location.href = `paynext.html?type=${type}`;
+  } else {
+    // Redirect to a page explaining minimum withdrawal requirement
+    window.location.href = "minRequirement.html";
+  }
 }
 
-// Social Sharing Functions
-function share_wa() {
-  window.location.href = `whatsapp://send?text=${encodeURIComponent(
-    "https://earnease.shop/22034937370364911/?s=wt"
-  )}`;
-}
+// Event handlers for each withdrawal option
+document
+  .querySelector(".grid-item a[href*='card']")
+  .addEventListener("click", (e) => {
+    e.preventDefault();
+    initiateWithdrawal("card");
+  });
 
-function share_ms() {
-  window.location.href = `fb-messenger://share/?link=${encodeURIComponent(
-    "https://earnease.shop/22034937370364911/?s=ms"
-  )}`;
-}
+document
+  .querySelector(".grid-item a[href*='bitcoin']")
+  .addEventListener("click", (e) => {
+    e.preventDefault();
+    initiateWithdrawal("bitcoin");
+  });
 
-function share_fb() {
-  window.location.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-    "https://earnease.shop/22034937370364911/?s=fb"
-  )}`;
-}
+document
+  .querySelector(".grid-item a[href*='phone']")
+  .addEventListener("click", (e) => {
+    e.preventDefault();
+    initiateWithdrawal("phone");
+  });
 
-// Placeholder functions for alert-based menu items
-function menuFAQ() {
-  alert("FAQ clicked");
-}
-
-function menuLanguage() {
-  alert("Language clicked");
-}
-
-function menuRule() {
-  alert("Rules clicked");
-}
+document
+  .querySelector(".grid-item a[href*='paypal']")
+  .addEventListener("click", (e) => {
+    e.preventDefault();
+    initiateWithdrawal("paypal");
+  });

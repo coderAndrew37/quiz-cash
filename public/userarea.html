@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Area</title>
     <link rel="stylesheet" href="/styles/usearea.css" />
+    <link rel="stylesheet" href="/styles/form.css" />
   </head>
   <body>
     <div class="container">
@@ -14,8 +15,8 @@
         </div>
         <div class="user-info">
           <img src="/images/profile.png" alt="User Avatar" class="avatar" />
-          <div class="username username-display">username</div>
-          <div class="user-email email-display">example@gmail.com</div>
+          <div class="username username-display">OmolloAndrew</div>
+          <div class="user-email email-display">omolloandrew3@gmail.com</div>
         </div>
       </header>
 
@@ -29,6 +30,19 @@
             <span class="label">Withdrawable:</span>
             <span id="withdrawable-usd" class="value">$0.00</span>
           </div>
+        </div>
+
+        <!-- New Buttons for Earning More and Withdrawing -->
+        <div class="actions">
+          <button onclick="window.location.href='/'" class="action-btn">
+            Earn More
+          </button>
+          <button
+            onclick="window.location.href='/withdraw.html'"
+            class="action-btn"
+          >
+            Withdraw Now
+          </button>
         </div>
       </section>
 
@@ -66,7 +80,7 @@
           alt="Profile Picture"
           class="profile-pic"
         />
-        <p class="username-display">username</p>
+        <p class="username-display">OmolloAndrew</p>
         <small>GRADE: 1</small>
       </div>
       <ul>
@@ -80,6 +94,6 @@
     </div>
 
     <script src="/scripts/menuToggle.js"></script>
-    <script src="/scripts/useArea.js"></script>
+    <script src="/scripts/userArea.js"></script>
   </body>
 </html>
