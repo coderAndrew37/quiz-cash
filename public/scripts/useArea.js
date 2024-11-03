@@ -29,20 +29,22 @@ function submitForm() {
   alert(`Submitted! Area Code: ${areaCode}, Mobile Number: ${mobileNumber}`);
 }
 
-// Function to load and display user's coin balance and currency equivalents
+// Function to load and display user's coin balance from local storage and currency equivalents
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Retrieve coins earned from localStorage
-  const coinsEarned = parseInt(localStorage.getItem("quizCoinsEarned")) || 0;
+  // Retrieve accumulated coins from localStorage
+  const coinsEarned = parseInt(localStorage.getItem("totalCoinsEarned")) || 0;
+  console.log(coinsEarned);
 
-  // Currency conversion rates
-  const USD_RATE = 0.001; // 1 coin = 0.001 USD
-  const KES_RATE = 0.11; // 1 coin = 0.11 KES (example rate)
+  // Conversion rates
+  const USD_RATE = 0.001; // Example: 1 coin = 0.001 USD
+  const KES_RATE = 0.11; // Example: 1 coin = 0.11 KES
 
-  // Calculate USD and KES equivalents
+  // Calculate and format USD and KES equivalents
   const usdEquivalent = (coinsEarned * USD_RATE).toFixed(2);
   const kesEquivalent = (coinsEarned * KES_RATE).toFixed(2);
 
-  // Display total coins and equivalent in USD and KES
+  // Update the DOM elements with the accumulated coins and currency equivalents
   const totalCoinsElement = document.getElementById("total-coins");
   if (totalCoinsElement) {
     totalCoinsElement.textContent = coinsEarned;

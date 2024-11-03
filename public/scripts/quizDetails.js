@@ -137,19 +137,30 @@ function loadNextQuiz() {
   }
 }
 
+// quizDetails.js
+
 function submitQuiz() {
   clearInterval(timerInterval);
   alert(`Quiz complete! You earned a total of ${score} coins!`);
 
-  // Store the earned coins in localStorage
-  localStorage.setItem("quizCoinsEarned", score);
+  const totalCoins = parseInt(localStorage.getItem("totalCoinsEarned")) || 0;
+  const newTotalCoins = totalCoins + score;
 
-  // Remove specific keys without clearing the entire localStorage
+  console.log(
+    "Current Coins:",
+    totalCoins,
+    "Score Earned:",
+    score,
+    "New Total:",
+    newTotalCoins
+  ); // Debug
+
+  localStorage.setItem("totalCoinsEarned", newTotalCoins);
+
   localStorage.removeItem("currentIndex");
   localStorage.removeItem("score");
 
-  // Redirect to the user area page
-  window.location.href = `userarea.html`;
+  window.location.href = "/userarea.html";
 }
 
 function redirectToHome() {
