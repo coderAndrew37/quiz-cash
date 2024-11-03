@@ -1,5 +1,5 @@
 export async function loadQuizzes() {
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = "https://quiz-cash.onrender.com";
 
   try {
     const response = await fetch(`${baseUrl}/api/quizzes/public`);
