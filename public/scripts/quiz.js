@@ -1,5 +1,5 @@
 export async function loadQuizzes() {
-  const baseUrl = process.env.BASE_URL || ""; // Fallback to empty string if not set
+  const baseUrl = "http://localhost:5000";
 
   try {
     const response = await fetch(`${baseUrl}/api/quizzes/public`);
