@@ -14,7 +14,7 @@ const transports = [
 if (process.env.NODE_ENV === "production") {
   transports.push(
     new winston.transports.MongoDB({
-      db: process.env.MONGO_URI,
+      db: process.env.MONGODB_URI,
       options: { useUnifiedTopology: true },
       collection: "log",
       level: "error",
