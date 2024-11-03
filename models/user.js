@@ -1,46 +1,22 @@
-// models/user.js
-
 const mongoose = require("mongoose");
-const Joi = require("joi");
+const bcrypt = require("bcryptjs");
 
-// Mongoose schema for User
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 50,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: 5,
-    maxlength: 255,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-    maxlength: 1024,
-  },
-  dateCreated: {
-    type: Date,
-    default: Date.now,
-  },
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
 });
 
-// Model
-const User = mongoose.model("User", userSchema);
+// Hash password before saving user
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
-// Joi validation for user input
-function validateUser(user) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).max(50).required(),
-    email: Joi.string().email().min(5).max(255).required(),
-    password: Joi.string().min(6).max(255).required(),
-  });
-  return schema.validate(user);
-}
+// Password verification
+userSchema.methods.comparePassword = function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
-module.exports = { User, validateUser };
+module.exports = mongoose.model("User", userSchema);
