@@ -344,3 +344,85 @@
 2024-11-04T09:14:20.889Z [INFO]: Connected to MongoDB
 2024-11-04T09:17:18.287Z [INFO]: Server running on port 5000
 2024-11-04T09:17:21.991Z [INFO]: Connected to MongoDB
+2024-11-04T10:20:09.295Z [INFO]: Server running on port 5000
+2024-11-04T10:20:12.012Z [INFO]: Server running on port 5000
+2024-11-04T10:20:16.023Z [INFO]: Connected to MongoDB
+2024-11-04T10:28:34.539Z [INFO]: Server running on port 5000
+2024-11-04T10:28:41.765Z [INFO]: Connected to MongoDB
+2024-11-04T10:31:52.193Z [INFO]: Server running on port 5000
+2024-11-04T10:32:00.916Z [INFO]: Connected to MongoDB
+2024-11-04T10:43:39.184Z [INFO]: Server running on port 5000
+2024-11-04T10:43:46.004Z [INFO]: Server running on port 5000
+2024-11-04T10:43:50.521Z [INFO]: Connected to MongoDB
+2024-11-04T10:44:12.157Z [INFO]: Server running on port 5000
+2024-11-04T10:44:17.756Z [INFO]: Connected to MongoDB
+2024-11-04T10:44:28.035Z [INFO]: Server running on port 5000
+2024-11-04T10:44:34.804Z [INFO]: Connected to MongoDB
+2024-11-04T10:45:17.403Z [INFO]: Server running on port 5000
+2024-11-04T10:45:27.862Z [INFO]: Connected to MongoDB
+2024-11-04T10:45:46.348Z [INFO]: Server running on port 5000
+2024-11-04T10:45:56.482Z [INFO]: Connected to MongoDB
+2024-11-04T10:46:06.208Z [INFO]: Server running on port 5000
+2024-11-04T10:46:22.968Z [INFO]: Connected to MongoDB
+2024-11-04T10:47:43.458Z [INFO]: Server running on port 5000
+2024-11-04T10:47:52.270Z [INFO]: Connected to MongoDB
+2024-11-04T10:51:20.922Z [INFO]: Server running on port 5000
+2024-11-04T10:51:25.757Z [INFO]: Connected to MongoDB
+2024-11-04T10:53:20.220Z [INFO]: Server running on port 5000
+2024-11-04T10:53:25.784Z [INFO]: Connected to MongoDB
+2024-11-04T10:55:14.488Z [INFO]: Server running on port 5000
+2024-11-04T10:55:18.708Z [INFO]: Connected to MongoDB
+2024-11-04T10:55:35.291Z [INFO]: Server running on port 5000
+2024-11-04T10:55:39.299Z [INFO]: Connected to MongoDB
+2024-11-04T10:56:39.384Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:00.407Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:01.724Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:03.263Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:05.353Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:06.568Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:08.328Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:09.646Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:10.886Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:57:50.806Z [INFO]: Server running on port 5000
+2024-11-04T10:57:54.425Z [INFO]: Connected to MongoDB
+2024-11-04T10:58:17.011Z [INFO]: Server running on port 5000
+2024-11-04T10:58:20.539Z [INFO]: Connected to MongoDB
+2024-11-04T10:58:21.453Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:58:23.238Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:58:24.785Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:58:26.167Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:58:27.551Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:59:09.247Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:59:39.908Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T10:59:45.814Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T11:00:19.065Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T11:00:25.507Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T11:01:00.107Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T13:03:45.754Z [INFO]: Server running on port 5000
+2024-11-04T13:03:49.464Z [INFO]: Connected to MongoDB
+2024-11-04T13:04:11.786Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T13:04:24.597Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T13:05:47.558Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T13:07:48.044Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T13:08:25.542Z [ERROR]: Cannot read properties of undefined (reading 'token') Cannot read properties of undefined (reading 'token')
+2024-11-04T13:10:34.763Z [INFO]: Server running on port 5000
+2024-11-04T13:10:38.099Z [INFO]: Connected to MongoDB
+2024-11-04T13:11:15.202Z [INFO]: Server running on port 5000
+2024-11-04T13:11:18.394Z [INFO]: Connected to MongoDB
+2024-11-04T13:11:21.449Z [INFO]: Server running on port 5000
+2024-11-04T13:11:24.839Z [INFO]: Connected to MongoDB
+2024-11-04T13:15:35.071Z [INFO]: Connected to MongoDB
+2024-11-04T13:15:43.049Z [INFO]: Connected to MongoDB
+2024-11-04T13:18:41.933Z [INFO]: Connected to MongoDB
+2024-11-04T13:24:12.296Z [INFO]: Connected to MongoDB
+2024-11-04T13:25:00.557Z [INFO]: Connected to MongoDB
+2024-11-04T13:25:16.050Z [INFO]: Connected to MongoDB
+2024-11-04T13:25:27.689Z [INFO]: Connected to MongoDB
+2024-11-04T13:26:08.381Z [INFO]: Connected to MongoDB
+2024-11-04T13:26:41.726Z [INFO]: Connected to MongoDB
+2024-11-04T13:27:05.794Z [INFO]: Server running on port 5000
+2024-11-04T13:27:11.060Z [INFO]: Connected to MongoDB
+2024-11-04T13:27:23.103Z [INFO]: Server running on port 5000
+2024-11-04T13:27:26.173Z [INFO]: Connected to MongoDB
+2024-11-04T13:27:33.347Z [INFO]: Server running on port 5000
+2024-11-04T13:27:36.609Z [INFO]: Connected to MongoDB
