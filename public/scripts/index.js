@@ -1,4 +1,5 @@
 import "./inactivityLogout.js";
+import "./logout.js";
 import { loadQuizzes, startQuiz as importedStartQuiz } from "./quiz.js";
 
 // Sidebar toggle functionality

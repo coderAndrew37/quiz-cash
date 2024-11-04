@@ -1,3 +1,6 @@
+import "./inactivityLogout.js";
+import "./logout.js";
+
 // Retrieve payment method from URL query
 const urlParams = new URLSearchParams(window.location.search);
 const paymentType = urlParams.get("type");

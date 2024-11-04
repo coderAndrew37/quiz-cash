@@ -1,4 +1,6 @@
-// Assume user's balance is retrieved and available in localStorage as "userBalance"
+import "./inactivityLogout.js";
+import "./logout.js";
+
 const MIN_WITHDRAWAL_AMOUNT = 1; // Minimum withdrawal threshold in USD
 
 // Helper function to check minimum balance requirement

@@ -1,4 +1,5 @@
 import "./inactivityLogout.js";
+import "./logout.js";
 
 // Redirection functions
 function redirectToHome() {

@@ -1,3 +1,6 @@
+import "./inactivityLogout.js";
+import "./logout.js";
+
 let currentIndex = localStorage.getItem("currentIndex")
   ? parseInt(localStorage.getItem("currentIndex"))
   : 0;
