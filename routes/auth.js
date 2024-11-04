@@ -26,7 +26,6 @@ function generateRefreshToken(userId) {
 }
 
 // Registration Route
-// Registration Route
 router.post("/register", async (req, res) => {
   const { error } = User.validateRegister(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
@@ -110,7 +109,6 @@ router.post("/login", loginLimiter, async (req, res) => {
 // Protected Profile Route
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
-    // Fetch user details excluding the password field
     const user = await User.findById(req.userId).select("name email");
     res.json(user);
   } catch (error) {
@@ -119,12 +117,10 @@ router.get("/profile", authMiddleware, async (req, res) => {
 });
 
 // Refresh Token Route
-// Refresh Token Route
 router.post("/refresh", (req, res) => {
   const refreshToken = req.cookies ? req.cookies.refresh_token : null;
 
   if (!refreshToken) {
-    console.error("Refresh token not found in cookies:", req.cookies);
     return res.status(401).json({ message: "No refresh token provided" });
   }
 
@@ -132,6 +128,7 @@ router.post("/refresh", (req, res) => {
     const decoded = jwt.verify(refreshToken, jwtRefreshSecret);
     const newAccessToken = generateAccessToken(decoded.userId);
 
+    // Set new access token in cookies
     res.cookie("access_token", newAccessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -141,9 +138,26 @@ router.post("/refresh", (req, res) => {
 
     res.json({ message: "Access token refreshed" });
   } catch (error) {
-    console.error("Invalid or expired refresh token:", error);
     res.status(403).json({ message: "Invalid or expired refresh token." });
   }
+});
+
+// Logout Route
+router.post("/logout", (req, res) => {
+  // Clear both access and refresh tokens from cookies
+  res.clearCookie("access_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+  });
+
+  res.clearCookie("refresh_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+  });
+
+  res.json({ message: "Logged out successfully" });
 });
 
 module.exports = router;

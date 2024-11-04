@@ -1,10 +1,5 @@
+import { baseUrl } from "./constants.js";
 export async function loadQuizzes() {
-  // Dynamically set base URL based on environment
-  const isProduction = window.location.hostname !== "localhost";
-  const baseUrl = isProduction
-    ? "https://quiz-cash.onrender.com" // Production URL
-    : "http://localhost:5000"; // Development URL
-
   try {
     const response = await fetch(`${baseUrl}/api/quizzes/public`);
     if (!response.ok) throw new Error("Error fetching quizzes");

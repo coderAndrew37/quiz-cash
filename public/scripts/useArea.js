@@ -1,3 +1,5 @@
+import "./inactivityLogout.js";
+
 // Redirection functions
 function redirectToHome() {
   window.location.href = "/";

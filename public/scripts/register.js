@@ -1,3 +1,5 @@
+import { baseUrl } from "./constants";
+
 document
   .getElementById("register-form")
   .addEventListener("submit", async (e) => {
@@ -7,12 +9,6 @@ document
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-
-    // Set base URL dynamically based on environment
-    const isProduction = window.location.hostname !== "localhost";
-    const baseUrl = isProduction
-      ? "https://quiz-cash.onrender.com" // Production URL
-      : "http://localhost:5000"; // Development URL
 
     try {
       // Send registration request to backend

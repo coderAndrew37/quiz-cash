@@ -1,0 +1,25 @@
+/* Add to usearea.css or create a new CSS file */
+#logout-warning {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+#logout-warning .popup-content {
+  text-align: center;
+}
+
+#stay-logged-in {
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
