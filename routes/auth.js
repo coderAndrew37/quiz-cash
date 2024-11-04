@@ -1,10 +1,16 @@
-// routes/auth.js
-/*
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
 const authMiddleware = require("../middleware/auth");
 const router = express.Router();
+const rateLimit = require("express-rate-limit");
+
+// Apply rate limit to login route
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 requests per windowMs
+  message: "Too many login attempts. Please try again later.",
+});
 
 // Environment variables for JWT secrets
 const jwtSecret = process.env.JWT_SECRET;
@@ -43,7 +49,7 @@ router.post("/register", async (req, res) => {
 });
 
 // Login Route
-router.post("/login", async (req, res) => {
+router.post("/login", loginLimiter, async (req, res) => {
   // Validate request body using Joi schema from the User model
   const { error } = User.validateLogin(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
@@ -63,14 +69,15 @@ router.post("/login", async (req, res) => {
     // Set refresh token in an HttpOnly cookie
     res.cookie("refresh_token", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // Ensure HTTPS in production
+      sameSite: "Strict", // Prevent cookies from being sent with cross-site requests
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    // Set access token in an HttpOnly cookie
     res.cookie("access_token", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
 
@@ -103,9 +110,10 @@ router.post("/refresh", (req, res) => {
     const newAccessToken = generateAccessToken(decoded.userId);
 
     // Send new access token as a cookie
-    res.cookie("access_token", newAccessToken, {
+    res.cookie("access_token", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
 
@@ -116,5 +124,3 @@ router.post("/refresh", (req, res) => {
 });
 
 module.exports = router;
-
-*/
