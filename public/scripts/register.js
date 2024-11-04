@@ -28,8 +28,8 @@ document
       if (response.ok) {
         // Store token and user data in localStorage
         localStorage.setItem("token", data.token);
-        localStorage.setItem("username", name); // Store username
-        localStorage.setItem("email", email); // Store email
+        localStorage.setItem("username", data.username); // Store username
+        localStorage.setItem("email", data.email); // Store email
 
         // Redirect to homepage on successful registration
         window.location.href = "/";

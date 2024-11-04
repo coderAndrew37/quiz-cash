@@ -1,6 +1,4 @@
-// index.js
-
-import { loadQuizzes, startQuiz as importedStartQuiz } from "./quiz.js"; // Rename the imported function
+import { loadQuizzes, startQuiz as importedStartQuiz } from "./quiz.js";
 
 // Sidebar toggle functionality
 document.getElementById("menu-toggle").addEventListener("click", function () {
@@ -47,3 +45,11 @@ export function startQuiz(quizId, quizTopic) {
     quizTopic
   )}`;
 }
+
+//Load the username
+document.addEventListener("DOMContentLoaded", () => {
+  const username = localStorage.getItem("username");
+  if (username) {
+    document.querySelector(".username-display").textContent = username;
+  }
+});

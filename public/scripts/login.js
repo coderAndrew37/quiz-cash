@@ -1,15 +1,11 @@
+import { baseUrl } from "./constants.js";
+
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   // Retrieve email and password from form fields
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-
-  // Dynamically set the base URL based on the environment
-  const isProduction = window.location.hostname !== "localhost";
-  const baseUrl = isProduction
-    ? "https://quiz-cash.onrender.com" // Production URL
-    : "http://localhost:5000"; // Development URL
 
   try {
     // Send login request to the backend
@@ -25,8 +21,8 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     if (response.ok) {
       // Store the token and user info in localStorage
       localStorage.setItem("token", data.token);
-      localStorage.setItem("username", data.username); // Assuming `username` is returned in the response
-      localStorage.setItem("email", email);
+      localStorage.setItem("username", data.username); // Store username
+      localStorage.setItem("email", data.email); // Store email
 
       // Redirect to homepage on successful login
       window.location.href = "/";

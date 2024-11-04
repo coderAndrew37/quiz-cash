@@ -16,6 +16,19 @@ function withdraw() {
   alert("You have requested to withdraw your funds.");
 }
 
+//load username and email from the backend
+document.addEventListener("DOMContentLoaded", () => {
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
+
+  if (username) {
+    document.querySelector(".username-display").textContent = username;
+  }
+  if (email) {
+    document.querySelector(".email-display").textContent = email;
+  }
+});
+
 // Form submission function for additional info
 function submitForm() {
   const areaCode = document.getElementById("area-code").value;
