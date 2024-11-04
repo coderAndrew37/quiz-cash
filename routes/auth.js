@@ -157,7 +157,7 @@ router.post("/logout", (req, res) => {
     sameSite: "Strict",
   });
 
-  res.json({ message: "Logged out successfully" });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 module.exports = router;

@@ -11,11 +11,19 @@ document.getElementById("logout-btn").addEventListener("click", async () => {
       });
 
       if (response.ok) {
-        // Clear client-side data and redirect to the login page
+        // Clear client-side data
         localStorage.removeItem("token");
         localStorage.removeItem("username");
         localStorage.removeItem("email");
-        window.location.href = "/login.html"; // Redirect to login page
+
+        // Redirect to login page
+        window.location.href = "/login.html";
+
+        // Disable back button functionality
+        window.history.pushState(null, null, "/login.html");
+        window.addEventListener("popstate", function () {
+          window.location.href = "/login.html";
+        });
       } else {
         console.error("Logout failed:", await response.text());
         alert("Failed to log out. Please try again.");

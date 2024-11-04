@@ -1,5 +1,21 @@
+// payNext.js
+
 import "./inactivityLogout.js";
 import "./logout.js";
+import {
+  redirectToLoginIfUnauthenticated,
+  loadUserData,
+  assignAuthChecksToLinks,
+} from "./auth.js";
+
+// Redirect to login if the user is not authenticated
+redirectToLoginIfUnauthenticated();
+
+// Load user data (e.g., username) when the document is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  loadUserData();
+  assignAuthChecksToLinks(); // Protect sidebar links
+});
 
 // Retrieve payment method from URL query
 const urlParams = new URLSearchParams(window.location.search);
@@ -35,13 +51,13 @@ document
 
     // Determine required package cost in KES based on the amount
     let packageCost;
-    if (amount > 0 && amount <= 50) {
+    if (amount > 0 && amount <= 5000) {
       packageCost = 1000; // 1 - 5000 KES withdrawal requires 1000 KES package
-    } else if (amount > 50 && amount <= 100) {
+    } else if (amount > 5000 && amount <= 10000) {
       packageCost = 2000; // 5000 - 10000 KES withdrawal requires 2000 KES package
-    } else if (amount > 100 && amount <= 500) {
+    } else if (amount > 10000 && amount <= 50000) {
       packageCost = 5000; // 10000 - 50000 KES withdrawal requires 5000 KES package
-    } else if (amount > 500) {
+    } else if (amount > 50000) {
       packageCost = 10000; // 50000+ KES withdrawal requires 10000 KES package
     }
 

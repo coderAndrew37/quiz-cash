@@ -1,7 +1,39 @@
 import "./inactivityLogout.js";
 import "./logout.js";
+import {
+  assignAuthChecksToLinks,
+  loadUserData,
+  redirectToLoginIfUnauthenticated,
+} from "./auth.js";
 
-// Redirection functions
+// Redirect to login if the user is not authenticated
+redirectToLoginIfUnauthenticated();
+
+// Load user data (e.g., username and email) when the document is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  loadUserData();
+  loadCoinBalanceAndCurrency();
+  assignAuthChecksToLinks(); // Protect sidebar links
+});
+
+function loadCoinBalanceAndCurrency() {
+  const coinsEarned = parseInt(localStorage.getItem("totalCoinsEarned")) || 0;
+  const USD_RATE = 0.001; // Example rate: 1 coin = 0.001 USD
+  const KES_RATE = 0.11; // Example rate: 1 coin = 0.11 KES
+
+  const usdEquivalent = (coinsEarned * USD_RATE).toFixed(2);
+  const kesEquivalent = (coinsEarned * KES_RATE).toFixed(2);
+
+  const totalCoinsElement = document.getElementById("total-coins");
+  if (totalCoinsElement) totalCoinsElement.textContent = coinsEarned;
+
+  const withdrawableElement = document.getElementById("withdrawable-usd");
+  if (withdrawableElement) {
+    withdrawableElement.textContent = `$${usdEquivalent} (KES ${kesEquivalent})`;
+  }
+}
+
+// Redirection functions for navigation
 function redirectToHome() {
   window.location.href = "/";
 }
@@ -10,29 +42,12 @@ function redirectToWithdraw() {
   window.location.href = "/withdraw.html";
 }
 
-function redirectToQuiz() {
-  window.location.href = "https://your-site.com/quiz";
-}
-
-// Withdrawal request alert
+// Simulated withdrawal request function
 function withdraw() {
   alert("You have requested to withdraw your funds.");
 }
 
-//load username and email from the backend
-document.addEventListener("DOMContentLoaded", () => {
-  const username = localStorage.getItem("username");
-  const email = localStorage.getItem("email");
-
-  if (username) {
-    document.querySelector(".username-display").textContent = username;
-  }
-  if (email) {
-    document.querySelector(".email-display").textContent = email;
-  }
-});
-
-// Form submission function for additional info
+// Form submission function for additional user info
 function submitForm() {
   const areaCode = document.getElementById("area-code").value;
   const mobileNumber = document.getElementById("mobile-number").value;
@@ -44,30 +59,3 @@ function submitForm() {
 
   alert(`Submitted! Area Code: ${areaCode}, Mobile Number: ${mobileNumber}`);
 }
-
-// Function to load and display user's coin balance from local storage and currency equivalents
-
-document.addEventListener("DOMContentLoaded", () => {
-  // Retrieve accumulated coins from localStorage
-  const coinsEarned = parseInt(localStorage.getItem("totalCoinsEarned")) || 0;
-  console.log(coinsEarned);
-
-  // Conversion rates
-  const USD_RATE = 0.001; // Example: 1 coin = 0.001 USD
-  const KES_RATE = 0.11; // Example: 1 coin = 0.11 KES
-
-  // Calculate and format USD and KES equivalents
-  const usdEquivalent = (coinsEarned * USD_RATE).toFixed(2);
-  const kesEquivalent = (coinsEarned * KES_RATE).toFixed(2);
-
-  // Update the DOM elements with the accumulated coins and currency equivalents
-  const totalCoinsElement = document.getElementById("total-coins");
-  if (totalCoinsElement) {
-    totalCoinsElement.textContent = coinsEarned;
-  }
-
-  const withdrawableElement = document.getElementById("withdrawable-usd");
-  if (withdrawableElement) {
-    withdrawableElement.textContent = `$${usdEquivalent} (KES ${kesEquivalent})`;
-  }
-});

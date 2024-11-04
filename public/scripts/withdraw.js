@@ -1,5 +1,19 @@
 import "./inactivityLogout.js";
 import "./logout.js";
+import {
+  assignAuthChecksToLinks,
+  loadUserData,
+  redirectToLoginIfUnauthenticated,
+} from "./auth.js";
+
+// Redirect to login if the user is not authenticated
+redirectToLoginIfUnauthenticated();
+
+// Load user data (e.g., username and balance) when the document is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  loadUserData();
+  assignAuthChecksToLinks(); // Protect sidebar links
+});
 
 const MIN_WITHDRAWAL_AMOUNT = 1; // Minimum withdrawal threshold in USD
 

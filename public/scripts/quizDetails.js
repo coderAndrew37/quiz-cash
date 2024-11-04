@@ -1,5 +1,20 @@
 import "./inactivityLogout.js";
 import "./logout.js";
+import {
+  assignAuthChecksToLinks,
+  loadUserData,
+  redirectToLoginIfUnauthenticated,
+} from "./auth.js";
+
+// Redirect to login if the user is not authenticated
+redirectToLoginIfUnauthenticated();
+
+// Load user data (e.g., username) when the document is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  loadUserData();
+  loadQuiz();
+  assignAuthChecksToLinks(); // Protect sidebar links
+});
 
 let currentIndex = localStorage.getItem("currentIndex")
   ? parseInt(localStorage.getItem("currentIndex"))
@@ -12,6 +27,7 @@ let timerInterval;
 let timeLeft = 60;
 let timerStarted = false;
 
+// Helper function to get query parameters from URL
 function getQueryVariable(variable) {
   const query = window.location.search.substring(1);
   const vars = query.split("&");
@@ -27,6 +43,7 @@ function getQueryVariable(variable) {
 const quizTopic = getQueryVariable("topic") || "";
 console.log("Quiz Topic:", quizTopic);
 
+// Load quiz data from server based on topic
 function loadQuiz() {
   const url = quizTopic
     ? `/api/quizzes/public?topic=${quizTopic}`
@@ -54,6 +71,7 @@ function loadQuiz() {
     });
 }
 
+// Display a specific question by index
 function showQuestion(index) {
   if (questions.length === 0 || !questions[index]) {
     console.error("No question data found.");
@@ -94,6 +112,7 @@ function showQuestion(index) {
   document.querySelector(".question-number").textContent = `${index + 1}/10.`;
 }
 
+// Start the countdown timer for the quiz
 function startCountdown() {
   const timerElement = document.getElementById("time-left");
   timerInterval = setInterval(() => {
@@ -107,6 +126,7 @@ function startCountdown() {
   }, 1000);
 }
 
+// Check if the selected answer is correct and update score
 function checkAnswer(selectedAnswer, correctAnswer) {
   const notificationElement = document.getElementById("notification");
   const coinsCountElement = document.querySelector(".coins-count");
@@ -130,6 +150,7 @@ function checkAnswer(selectedAnswer, correctAnswer) {
   }
 }
 
+// Load the next quiz question or submit quiz if finished
 function loadNextQuiz() {
   currentIndex++;
   if (currentIndex < questions.length) {
@@ -140,23 +161,13 @@ function loadNextQuiz() {
   }
 }
 
-// quizDetails.js
-
+// Submit the quiz and show final score
 function submitQuiz() {
   clearInterval(timerInterval);
   alert(`Quiz complete! You earned a total of ${score} coins!`);
 
   const totalCoins = parseInt(localStorage.getItem("totalCoinsEarned")) || 0;
   const newTotalCoins = totalCoins + score;
-
-  console.log(
-    "Current Coins:",
-    totalCoins,
-    "Score Earned:",
-    score,
-    "New Total:",
-    newTotalCoins
-  ); // Debug
 
   localStorage.setItem("totalCoinsEarned", newTotalCoins);
 
@@ -165,13 +176,3 @@ function submitQuiz() {
 
   window.location.href = "/userarea.html";
 }
-
-function redirectToHome() {
-  window.location.href = "/";
-}
-
-function redirectToWithdraw() {
-  window.location.href = "/withdraw.html";
-}
-
-document.addEventListener("DOMContentLoaded", loadQuiz);
