@@ -280,3 +280,54 @@ body {
   color: #e5092e;
   text-align: right;
 }
+
+/*========================= Skeletons =================*/
+/* Skeleton styles */
+.skeleton {
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+}
+
+.skeleton-image {
+  width: 60px;
+  height: 60px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+.skeleton-text {
+  background-color: #ddd;
+  border-radius: 5px;
+  display: inline-block;
+  width: 100%;
+  height: 1rem;
+  margin-top: 0.5rem;
+}
+
+.skeleton .quiz-question.skeleton-text {
+  width: 70%; /* Adjust width to mimic quiz question length */
+  height: 1.2rem;
+}
+
+.skeleton .quiz-details .quiz-id.skeleton-text,
+.skeleton .quiz-details .quiz-coins.skeleton-text {
+  width: 30%; /* Shorter widths to mimic details */
+  height: 0.8rem;
+}
+
+.skeleton .quiz-btn.skeleton-text {
+  width: 50%;
+  height: 1.5rem;
+}
+
+/* Skeleton loading animation */
+@keyframes skeleton-loading {
+  0% {
+    background-color: #ddd;
+  }
+  50% {
+    background-color: #ccc;
+  }
+  100% {
+    background-color: #ddd;
+  }
+}

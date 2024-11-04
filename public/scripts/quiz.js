@@ -1,11 +1,19 @@
 import { baseUrl } from "./constants.js";
+
 export async function loadQuizzes() {
   try {
+    // Show skeletons during loading
+    document.querySelectorAll(".skeleton").forEach((skeleton) => {
+      skeleton.style.display = "block";
+    });
+
     const response = await fetch(`${baseUrl}/api/quizzes/public`);
     if (!response.ok) throw new Error("Error fetching quizzes");
 
     const quizzes = await response.json();
     const quizContainer = document.querySelector(".quiz-container");
+
+    // Remove skeletons after loading
     quizContainer.innerHTML = quizzes
       .map(
         (quiz) => `

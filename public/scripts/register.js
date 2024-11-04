@@ -1,4 +1,4 @@
-import { baseUrl } from "./constants";
+import { baseUrl } from "./constants.js";
 
 document
   .getElementById("register-form")
