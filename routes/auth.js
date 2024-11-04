@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User.js");
+const User = require("../models/users.js");
 const authMiddleware = require("../middleware/auth");
 const router = express.Router();
 const rateLimit = require("express-rate-limit");
@@ -68,6 +68,7 @@ router.post("/register", async (req, res) => {
 });
 
 // Login Route
+// Login Route
 router.post("/login", loginLimiter, async (req, res) => {
   const { error } = User.validateLogin(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
@@ -79,9 +80,11 @@ router.post("/login", loginLimiter, async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // Generate tokens
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
 
+    // Set tokens as HTTP-only cookies
     res.cookie("refresh_token", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -96,8 +99,10 @@ router.post("/login", loginLimiter, async (req, res) => {
       maxAge: 15 * 60 * 1000,
     });
 
+    // Send the accessToken in the response JSON for the frontend
     res.json({
       message: "Login successful",
+      token: accessToken, // <-- Include the accessToken here
       username: user.name,
       email: user.email,
     });
@@ -139,6 +144,19 @@ router.post("/refresh", (req, res) => {
     res.json({ message: "Access token refreshed" });
   } catch (error) {
     res.status(403).json({ message: "Invalid or expired refresh token." });
+  }
+});
+
+//Retreive the coins from the server
+router.get("/coins", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select("coins");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json({ coins: user.coins });
+  } catch (error) {
+    console.error("Error retrieving coins:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

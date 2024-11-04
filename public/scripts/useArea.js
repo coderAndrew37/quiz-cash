@@ -1,3 +1,4 @@
+import { baseUrl } from "./constants.js";
 import "./inactivityLogout.js";
 import "./logout.js";
 import {
@@ -16,20 +17,35 @@ document.addEventListener("DOMContentLoaded", () => {
   assignAuthChecksToLinks(); // Protect sidebar links
 });
 
-function loadCoinBalanceAndCurrency() {
-  const coinsEarned = parseInt(localStorage.getItem("totalCoinsEarned")) || 0;
+// Fetch and display the coin balance from the backend
+async function loadCoinBalanceAndCurrency() {
+  const token = localStorage.getItem("token");
   const USD_RATE = 0.001; // Example rate: 1 coin = 0.001 USD
   const KES_RATE = 0.11; // Example rate: 1 coin = 0.11 KES
 
-  const usdEquivalent = (coinsEarned * USD_RATE).toFixed(2);
-  const kesEquivalent = (coinsEarned * KES_RATE).toFixed(2);
+  try {
+    const response = await fetch(`${baseUrl}/api/users/coins`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await response.json();
 
-  const totalCoinsElement = document.getElementById("total-coins");
-  if (totalCoinsElement) totalCoinsElement.textContent = coinsEarned;
+    if (response.ok) {
+      const coinsEarned = data.coins;
+      const usdEquivalent = (coinsEarned * USD_RATE).toFixed(2);
+      const kesEquivalent = (coinsEarned * KES_RATE).toFixed(2);
 
-  const withdrawableElement = document.getElementById("withdrawable-usd");
-  if (withdrawableElement) {
-    withdrawableElement.textContent = `$${usdEquivalent} (KES ${kesEquivalent})`;
+      const totalCoinsElement = document.getElementById("total-coins");
+      if (totalCoinsElement) totalCoinsElement.textContent = coinsEarned;
+
+      const withdrawableElement = document.getElementById("withdrawable-usd");
+      if (withdrawableElement) {
+        withdrawableElement.textContent = `$${usdEquivalent} (KES ${kesEquivalent})`;
+      }
+    } else {
+      console.error("Failed to load coins:", data.message);
+    }
+  } catch (error) {
+    console.error("Error loading coins:", error);
   }
 }
 

@@ -5,24 +5,21 @@ import {
   loadUserData,
   redirectToLoginIfUnauthenticated,
 } from "./auth.js";
+import { baseUrl } from "./constants.js";
 
 // Redirect to login if the user is not authenticated
 redirectToLoginIfUnauthenticated();
 
-// Load user data (e.g., username) when the document is fully loaded
+// Load user data and quiz data on document load
 document.addEventListener("DOMContentLoaded", () => {
   loadUserData();
   loadQuiz();
-  assignAuthChecksToLinks(); // Protect sidebar links
+  assignAuthChecksToLinks();
 });
 
-let currentIndex = localStorage.getItem("currentIndex")
-  ? parseInt(localStorage.getItem("currentIndex"))
-  : 0;
+let currentIndex = 0;
 let questions = [];
-let score = localStorage.getItem("score")
-  ? parseInt(localStorage.getItem("score"))
-  : 0;
+let score = 0;
 let timerInterval;
 let timeLeft = 60;
 let timerStarted = false;
@@ -41,42 +38,26 @@ function getQueryVariable(variable) {
 }
 
 const quizTopic = getQueryVariable("topic") || "";
-console.log("Quiz Topic:", quizTopic);
 
-// Load quiz data from server based on topic
-function loadQuiz() {
-  const url = quizTopic
-    ? `/api/quizzes/public?topic=${quizTopic}`
-    : "/api/quizzes/public";
+// Load quiz data from the server based on topic
+async function loadQuiz() {
+  const baseUrl = "/api/quizzes/public";
+  const url = quizTopic ? `${baseUrl}?topic=${quizTopic}` : baseUrl;
 
-  fetch(url)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log("Quiz data loaded:", data);
-      questions = data;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Failed to load quiz data");
 
-      if (!Array.isArray(questions) || questions.length === 0) {
-        console.warn("No questions available.");
-      }
-
-      showQuestion(currentIndex);
-    })
-    .catch((error) => {
-      console.error("Error loading quiz:", error);
-    });
+    questions = await response.json();
+    if (questions.length > 0) showQuestion(currentIndex);
+  } catch (error) {
+    console.error("Error loading quiz:", error);
+  }
 }
 
 // Display a specific question by index
 function showQuestion(index) {
-  if (questions.length === 0 || !questions[index]) {
-    console.error("No question data found.");
-    return;
-  }
+  if (!questions[index]) return console.error("No question data found.");
 
   const questionData = questions[index];
   document.getElementById("quiz-question").textContent = questionData.question;
@@ -93,7 +74,6 @@ function showQuestion(index) {
     const optionButton = document.createElement("button");
     optionButton.textContent = option;
     optionButton.style.cursor = "pointer";
-    optionButton.style.border = "2px solid white";
 
     optionButton.onclick = () => {
       optionButton.style.backgroundColor = "#4a42d0";
@@ -112,7 +92,7 @@ function showQuestion(index) {
   document.querySelector(".question-number").textContent = `${index + 1}/10.`;
 }
 
-// Start the countdown timer for the quiz
+// Start countdown timer
 function startCountdown() {
   const timerElement = document.getElementById("time-left");
   timerInterval = setInterval(() => {
@@ -126,16 +106,14 @@ function startCountdown() {
   }, 1000);
 }
 
-// Check if the selected answer is correct and update score
+// Check if selected answer is correct and update score
 function checkAnswer(selectedAnswer, correctAnswer) {
   const notificationElement = document.getElementById("notification");
-  const coinsCountElement = document.querySelector(".coins-count");
 
   if (notificationElement) {
     if (selectedAnswer === correctAnswer) {
       score += 200;
       notificationElement.textContent = "Correct! You earned 200 coins!";
-      if (coinsCountElement) coinsCountElement.textContent = score;
     } else {
       notificationElement.textContent = "Wrong answer!";
     }
@@ -145,34 +123,59 @@ function checkAnswer(selectedAnswer, correctAnswer) {
       notificationElement.style.display = "none";
       loadNextQuiz();
     }, 1500);
-  } else {
-    console.error("Notification element not found.");
   }
 }
 
-// Load the next quiz question or submit quiz if finished
+// Load the next quiz question or submit if finished
 function loadNextQuiz() {
   currentIndex++;
   if (currentIndex < questions.length) {
-    localStorage.setItem("currentIndex", currentIndex);
     showQuestion(currentIndex);
   } else {
     submitQuiz();
   }
 }
 
-// Submit the quiz and show final score
-function submitQuiz() {
+// Submit quiz and update coins
+// Function to submit quiz and update coins
+async function submitQuiz() {
   clearInterval(timerInterval);
-  alert(`Quiz complete! You earned a total of ${score} coins!`);
+  const token = localStorage.getItem("token");
 
-  const totalCoins = parseInt(localStorage.getItem("totalCoinsEarned")) || 0;
-  const newTotalCoins = totalCoins + score;
+  // Check if token is missing
+  if (!token) {
+    console.error("No token found in localStorage.");
+    alert("Session expired. Please log in again.");
+    window.location.href = "/login.html";
+    return;
+  }
 
-  localStorage.setItem("totalCoinsEarned", newTotalCoins);
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/quizzes/complete-quiz",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ coinsEarned: score }),
+      }
+    );
 
-  localStorage.removeItem("currentIndex");
-  localStorage.removeItem("score");
-
-  window.location.href = "/userarea.html";
+    if (response.ok) {
+      alert(`Quiz complete! You earned a total of ${score} coins!`);
+      window.location.href = "/userarea.html";
+    } else if (response.status === 403) {
+      alert("Session expired. Please log in again.");
+      localStorage.removeItem("token"); // Clear expired token
+      window.location.href = "/login.html";
+    } else {
+      const errorData = await response.json();
+      console.error("Failed to submit quiz:", errorData);
+      alert("Failed to submit quiz. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error submitting quiz:", error);
+  }
 }

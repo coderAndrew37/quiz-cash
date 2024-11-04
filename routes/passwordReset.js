@@ -1,7 +1,7 @@
 const express = require("express");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer"); // Placeholder for email service
-const User = require("../models/User.js");
+const User = require("../models/users.js");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 

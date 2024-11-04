@@ -39,7 +39,6 @@ export async function loadQuizzes() {
 // Function to navigate to quiz details page with topic
 export function startQuiz(quizId, quizTopic) {
   const token = localStorage.getItem("token");
-  console.log("Token found:", token); // Debug log to check token presence
 
   if (!token) {
     alert("You must be logged in to start the quiz.");
@@ -48,7 +47,7 @@ export function startQuiz(quizId, quizTopic) {
   }
 
   // If token is valid, continue to quiz
-  console.log(`Starting quiz with ID: ${quizId} and Topic: ${quizTopic}`);
+  //console.log(`Starting quiz with ID: ${quizId} and Topic: ${quizTopic}`);
   window.location.href = `/quiz.html?id=${quizId}&topic=${encodeURIComponent(
     quizTopic
   )}`;

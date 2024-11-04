@@ -1,4 +1,3 @@
-// Import the authentication utility functions
 import { checkAuthAndNavigate, assignAuthChecksToLinks } from "./auth.js";
 import "./inactivityLogout.js";
 import "./logout.js";
@@ -22,11 +21,41 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Function to dynamically update the coin balance
-function updateCoinBalance() {
-  const coinsBalanceElement = document.querySelector(".balance span");
-  const totalCoins = parseInt(localStorage.getItem("totalCoinsEarned")) || 0;
-  if (coinsBalanceElement) {
-    coinsBalanceElement.textContent = totalCoins;
+async function updateCoinBalance() {
+  let token = localStorage.getItem("token");
+  try {
+    let response = await fetch("/api/users/coins", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (response.status === 403) {
+      console.warn("Access token expired, attempting to refresh...");
+
+      // Attempt to refresh the token
+      const refreshResponse = await fetch("/api/users/refresh", {
+        method: "POST",
+        credentials: "include", // Include cookies in request
+      });
+
+      if (refreshResponse.ok) {
+        // Re-attempt fetching coin balance with the new access token
+        token = localStorage.getItem("token"); // Retrieve refreshed token
+        response = await fetch("/api/users/coins", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      } else {
+        throw new Error("Unable to refresh token");
+      }
+    }
+
+    const data = await response.json();
+    if (response.ok) {
+      document.querySelector(".balance span").textContent = data.coins;
+    } else {
+      console.error("Failed to load coin balance:", data.message);
+    }
+  } catch (error) {
+    console.error("Error loading coin balance:", error);
   }
 }
 
