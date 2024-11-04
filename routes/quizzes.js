@@ -24,19 +24,22 @@ router.post("/complete-quiz", authMiddleware, async (req, res) => {
   }
 });
 
-// Public route for getting quiz questions
+// Public route for getting random quiz questions
 router.get("/public", async (req, res) => {
   const { topic } = req.query;
-  //console.log("Fetching quizzes with topic:", topic);
 
   try {
     let questions;
+
     if (topic) {
-      questions = await Question.find({
-        topic: new RegExp(`^${topic}$`, "i"),
-      }).limit(10);
+      // Filter by topic and sample 10 random questions
+      questions = await Question.aggregate([
+        { $match: { topic: new RegExp(`^${topic}$`, "i") } },
+        { $sample: { size: 10 } },
+      ]);
     } else {
-      questions = await Question.find().limit(10);
+      // Sample 10 random questions across all topics
+      questions = await Question.aggregate([{ $sample: { size: 10 } }]);
     }
 
     console.log("Questions retrieved:", questions);
