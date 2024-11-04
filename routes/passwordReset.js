@@ -23,12 +23,12 @@ router.post("/forgot-password", async (req, res) => {
 
     // Generate password reset token and expiry
     const resetToken = user.generatePasswordResetToken();
-    await user.save({ validateBeforeSave: false }); // Skip validation for tokens
+    await user.save({ validateBeforeSave: false });
 
     // Send email with reset link
     const resetUrl = `${req.protocol}://${req.get(
       "host"
-    )}/reset-password/${resetToken}`;
+    )}/reset-password.html?token=${resetToken}`;
     const message = `To reset your password, click this link: ${resetUrl}`;
 
     await transporter.sendMail({

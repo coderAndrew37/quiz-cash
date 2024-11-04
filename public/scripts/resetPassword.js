@@ -6,8 +6,8 @@ document
     const newPassword = document.getElementById("new-password").value;
     const isProduction = window.location.hostname !== "localhost";
     const baseUrl = isProduction
-      ? "https://quiz-cash.onrender.com" // Production URL
-      : "http://localhost:5000"; // Development URL
+      ? "https://quiz-cash.onrender.com"
+      : "http://localhost:5000";
 
     // Extract token from URL query parameters
     const urlParams = new URLSearchParams(window.location.search);
