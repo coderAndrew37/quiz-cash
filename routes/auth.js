@@ -123,7 +123,7 @@ router.get("/profile", authMiddleware, async (req, res) => {
 
 // Refresh Token Route
 router.post("/refresh", (req, res) => {
-  const refreshToken = req.cookies ? req.cookies.refresh_token : null;
+  const refreshToken = req.cookies.refresh_token;
 
   if (!refreshToken) {
     return res.status(401).json({ message: "No refresh token provided" });
@@ -133,15 +133,8 @@ router.post("/refresh", (req, res) => {
     const decoded = jwt.verify(refreshToken, jwtRefreshSecret);
     const newAccessToken = generateAccessToken(decoded.userId);
 
-    // Set new access token in cookies
-    res.cookie("access_token", newAccessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
-      maxAge: 15 * 60 * 1000,
-    });
-
-    res.json({ message: "Access token refreshed" });
+    // Send the new access token back in the response
+    res.json({ token: newAccessToken });
   } catch (error) {
     res.status(403).json({ message: "Invalid or expired refresh token." });
   }

@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Function to dynamically update the coin balance
+// index.js
 async function updateCoinBalance() {
   let token = localStorage.getItem("token");
   try {
@@ -38,8 +39,11 @@ async function updateCoinBalance() {
       });
 
       if (refreshResponse.ok) {
-        // Re-attempt fetching coin balance with the new access token
-        token = localStorage.getItem("token"); // Retrieve refreshed token
+        const { token: newToken } = await refreshResponse.json();
+        localStorage.setItem("token", newToken); // Update the token in localStorage
+        token = newToken; // Update token variable with the new token
+
+        // Re-attempt fetching coin balance with the refreshed token
         response = await fetch("/api/users/coins", {
           headers: { Authorization: `Bearer ${token}` },
         });

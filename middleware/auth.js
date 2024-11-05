@@ -13,7 +13,7 @@ function authMiddleware(req, res, next) {
   const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, jwtSecret);
-    req.user = decoded;
+    req.user = { userId: decoded.userId }; // Ensure we have userId consistency
     next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {

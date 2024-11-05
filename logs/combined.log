@@ -468,3 +468,24 @@
 2024-11-04T14:39:46.402Z [INFO]: Server running on port 5000
 2024-11-04T14:39:49.725Z [INFO]: Server running on port 5000
 2024-11-04T14:39:53.348Z [INFO]: Connected to MongoDB
+2024-11-05T06:53:43.268Z [INFO]: Server running on port 5000
+2024-11-05T06:54:13.360Z [ERROR]: Could not connect to MongoDB Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2024-11-05T06:56:56.523Z [INFO]: Server running on port 5000
+2024-11-05T06:57:14.259Z [INFO]: Server running on port 5000
+2024-11-05T06:57:43.630Z [ERROR]: Could not connect to MongoDB read ECONNRESET
+2024-11-05T06:58:59.368Z [INFO]: Server running on port 5000
+2024-11-05T06:59:28.749Z [ERROR]: Could not connect to MongoDB read ECONNRESET
+2024-11-05T10:42:52.990Z [INFO]: Server running on port 5000
+2024-11-05T10:43:22.284Z [ERROR]: Could not connect to MongoDB read ECONNRESET
+2024-11-05T10:44:44.561Z [INFO]: Server running on port 5000
+2024-11-05T10:44:51.651Z [INFO]: Connected to MongoDB
+2024-11-05T11:01:58.120Z [INFO]: Server running on port 5000
+2024-11-05T11:02:02.098Z [INFO]: Server running on port 5000
+2024-11-05T11:02:05.543Z [INFO]: Connected to MongoDB
+2024-11-05T11:02:33.267Z [INFO]: Server running on port 5000
+2024-11-05T11:02:36.515Z [INFO]: Connected to MongoDB
+2024-11-05T11:02:41.594Z [INFO]: Server running on port 5000
+2024-11-05T11:02:44.778Z [INFO]: Connected to MongoDB
+2024-11-05T11:03:23.254Z [INFO]: Server running on port 5000
+2024-11-05T11:03:27.495Z [INFO]: Connected to MongoDB
+2024-11-05T11:04:09.255Z [INFO]: Server running on port 5000
