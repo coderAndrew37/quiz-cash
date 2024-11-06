@@ -30,3 +30,12 @@
 2024-11-05T06:57:43.630Z [ERROR]: Could not connect to MongoDB read ECONNRESET
 2024-11-05T06:59:28.749Z [ERROR]: Could not connect to MongoDB read ECONNRESET
 2024-11-05T10:43:22.284Z [ERROR]: Could not connect to MongoDB read ECONNRESET
+2024-11-05T11:47:17.095Z [ERROR]: Could not connect to MongoDB querySrv ETIMEOUT _mongodb._tcp.cluster0.a2oux.mongodb.net
+2024-11-05T12:22:54.473Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-05T12:23:08.181Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-05T12:24:18.488Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T13:45:10.908Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T14:18:31.489Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T14:18:45.794Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T14:21:00.478Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T14:21:03.908Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')

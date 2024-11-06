@@ -33,11 +33,9 @@
         const packageCost = localStorage.getItem("requiredPackageCost") || "0";
         const withdrawalMethod =
           localStorage.getItem("withdrawalMethod") || "phone";
-        const packageCostDisplay = document.getElementById(
+        document.getElementById(
           "package-cost-display"
-        );
-
-        packageCostDisplay.textContent = `KES ${packageCost}`;
+        ).textContent = `KES ${packageCost}`;
 
         document
           .getElementById("proceed-payment")
@@ -45,8 +43,6 @@
             alert(
               `Redirecting to payment gateway to pay KES ${packageCost} for ${withdrawalMethod} withdrawal...`
             );
-
-            // Simulate payment success and redirect to confirmation
             window.location.href =
               "/confirmation.html?method=" + withdrawalMethod;
           });

@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  packageStatus: {
+    type: Boolean,
+    default: false, // No package purchased initially
+  },
 });
 
 // Hash the password before saving the user

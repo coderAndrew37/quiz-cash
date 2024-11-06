@@ -26,49 +26,70 @@ document.addEventListener("DOMContentLoaded", function () {
   const dynamicLabel = document.getElementById("dynamic-label");
   const dynamicInput = document.getElementById("dynamic-input");
 
-  if (paymentType === "mpesa") {
+  if (paymentType === "phone") {
     dynamicLabel.textContent = "Phone Number (M-Pesa):";
     dynamicInput.placeholder = "e.g., +254700000000";
-  } else if (paymentType === "bank") {
-    dynamicLabel.textContent = "Bank Account Number:";
-    dynamicInput.placeholder = "Enter your bank account number";
+  } else if (paymentType === "card") {
+    dynamicLabel.textContent = "Card Number:";
+    dynamicInput.placeholder = "Enter your card number";
+  } else if (paymentType === "bitcoin") {
+    dynamicLabel.textContent = "Bitcoin Address:";
+    dynamicInput.placeholder = "Enter your Bitcoin address";
+  } else if (paymentType === "paypal") {
+    dynamicLabel.textContent = "PayPal Account Email:";
+    dynamicInput.placeholder = "Enter your PayPal email";
+  } else {
+    dynamicLabel.textContent = "Account Number:";
+    dynamicInput.placeholder = "Enter your account number";
   }
-});
 
-// Form submission handler with package requirement
-document
-  .getElementById("withdrawal-form")
-  .addEventListener("submit", function (e) {
+  // Form submission handler
+  const withdrawalForm = document.getElementById("withdrawal-form");
+  withdrawalForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const contactInfo = document.getElementById("dynamic-input").value;
-    const amount = parseFloat(document.getElementById("amount").value);
+    const amount = document.getElementById("amount").value;
+    const accountDetail = dynamicInput.value;
 
-    if (!contactInfo || isNaN(amount) || amount <= 0) {
-      alert("Please enter valid details.");
+    if (!amount || parseFloat(amount) <= 0) {
+      alert("Please enter a valid withdrawal amount.");
       return;
     }
 
-    // Determine required package cost in KES based on the amount
-    let packageCost;
-    if (amount > 0 && amount <= 5000) {
-      packageCost = 1000; // 1 - 5000 KES withdrawal requires 1000 KES package
-    } else if (amount > 5000 && amount <= 10000) {
-      packageCost = 2000; // 5000 - 10000 KES withdrawal requires 2000 KES package
-    } else if (amount > 10000 && amount <= 50000) {
-      packageCost = 5000; // 10000 - 50000 KES withdrawal requires 5000 KES package
-    } else if (amount > 50000) {
-      packageCost = 10000; // 50000+ KES withdrawal requires 10000 KES package
+    if (!accountDetail) {
+      alert("Please enter your account details.");
+      return;
     }
 
-    const confirmPackage = confirm(
-      `To proceed with this withdrawal, you need to purchase a package worth KES ${packageCost}. Click OK to continue.`
-    );
-    if (confirmPackage) {
-      localStorage.setItem("requiredPackageCost", packageCost);
-      localStorage.setItem("withdrawalMethod", paymentType); // Store the payment method for the next page
-      window.location.href = "/buypackageKES.html";
-    } else {
-      alert("Withdrawal cannot proceed without a package purchase.");
+    // Simulated API call for processing payment
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${baseUrl}/api/withdraw`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          amount: amount,
+          method: paymentType,
+          detail: accountDetail,
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Withdrawal processed successfully!");
+        // Redirect to confirmation page
+        window.location.href = `/confirmation.html?method=${paymentType}`;
+      } else {
+        alert(`Withdrawal failed: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Error processing withdrawal:", error);
+      alert(
+        "An error occurred while processing your withdrawal. Please try again later."
+      );
     }
   });
+});

@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // Fetch and display the coin balance from the backend
 async function loadCoinBalanceAndCurrency() {
   const token = localStorage.getItem("token");
-  const USD_RATE = 0.001; // Example rate: 1 coin = 0.001 USD
-  const KES_RATE = 0.11; // Example rate: 1 coin = 0.11 KES
+  const USD_RATE = 0.001;
+  const KES_RATE = 0.11;
 
   try {
     const response = await fetch(`${baseUrl}/api/users/coins`, {
@@ -34,13 +34,10 @@ async function loadCoinBalanceAndCurrency() {
       const usdEquivalent = (coinsEarned * USD_RATE).toFixed(2);
       const kesEquivalent = (coinsEarned * KES_RATE).toFixed(2);
 
-      const totalCoinsElement = document.getElementById("total-coins");
-      if (totalCoinsElement) totalCoinsElement.textContent = coinsEarned;
-
-      const withdrawableElement = document.getElementById("withdrawable-usd");
-      if (withdrawableElement) {
-        withdrawableElement.textContent = `$${usdEquivalent} (KES ${kesEquivalent})`;
-      }
+      document.getElementById("total-coins").textContent = coinsEarned;
+      document.getElementById(
+        "withdrawable-usd"
+      ).textContent = `$${usdEquivalent} (KES ${kesEquivalent})`;
     } else {
       console.error("Failed to load coins:", data.message);
     }

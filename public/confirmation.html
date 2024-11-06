@@ -24,19 +24,16 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const method = urlParams.get("method");
-        const confirmationMessage = document.getElementById(
-          "confirmation-message"
+        const method = new URLSearchParams(window.location.search).get(
+          "method"
         );
+        const confirmationMessage =
+          method === "phone"
+            ? "Your withdrawal has been processed to your M-Pesa account."
+            : "Your withdrawal has been processed to your bank account.";
 
-        if (method === "mpesa") {
-          confirmationMessage.textContent =
-            "Your withdrawal has been processed to your M-Pesa account.";
-        } else if (method === "bank") {
-          confirmationMessage.textContent =
-            "Your withdrawal has been processed to your bank account.";
-        }
+        document.getElementById("confirmation-message").textContent =
+          confirmationMessage;
       });
     </script>
   </body>

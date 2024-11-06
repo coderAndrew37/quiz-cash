@@ -18,9 +18,25 @@ document.addEventListener("DOMContentLoaded", () => {
 const MIN_WITHDRAWAL_AMOUNT = 1; // Minimum withdrawal threshold in USD
 
 // Helper function to check minimum balance requirement
-function checkMinimumBalance() {
-  const userBalance = parseFloat(localStorage.getItem("userBalance")) || 0;
-  return userBalance >= MIN_WITHDRAWAL_AMOUNT;
+async function checkMinimumBalance() {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${baseUrl}/api/users/coins`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+      const userBalance = data.coins * 0.001; // Convert to USD equivalent
+      return userBalance >= MIN_WITHDRAWAL_AMOUNT;
+    } else {
+      console.error("Failed to check balance:", data.message);
+      return false;
+    }
+  } catch (error) {
+    console.error("Error checking balance:", error);
+    return false;
+  }
 }
 
 // Withdrawal options - redirect based on balance
