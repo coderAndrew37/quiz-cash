@@ -579,3 +579,13 @@
 2024-11-06T14:28:36.034Z [INFO]: Connected to MongoDB
 2024-11-06T14:29:11.473Z [INFO]: Server running on port 5000
 2024-11-06T14:29:15.095Z [INFO]: Connected to MongoDB
+2024-11-06T14:46:21.743Z [INFO]: Server running on port 5000
+2024-11-06T14:46:25.141Z [INFO]: Connected to MongoDB
+2024-11-06T14:46:25.749Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T14:46:27.557Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T14:46:34.145Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T14:47:37.492Z [ERROR]: Cannot read properties of undefined (reading 'refresh_token') Cannot read properties of undefined (reading 'refresh_token')
+2024-11-06T14:49:28.638Z [INFO]: Server running on port 5000
+2024-11-06T14:49:34.276Z [INFO]: Connected to MongoDB
+2024-11-06T14:50:01.459Z [INFO]: Server running on port 5000
+2024-11-06T14:50:04.826Z [INFO]: Connected to MongoDB

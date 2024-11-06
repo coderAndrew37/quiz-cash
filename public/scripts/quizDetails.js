@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
   loadUserData();
   loadQuiz();
   assignAuthChecksToLinks();
+
+  // Initialize coins display with score = 0
+  updateCoinsDisplay(0);
 });
 
 let currentIndex = 0;
@@ -23,58 +26,6 @@ let score = 0;
 let timerInterval;
 let timeLeft = 60;
 let timerStarted = false;
-
-// Function to submit quiz and update coins
-async function submitQuiz() {
-  clearInterval(timerInterval);
-
-  try {
-    const response = await fetch(`${baseUrl}/api/quizzes/complete-quiz`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // Access token
-      },
-      body: JSON.stringify({ coinsEarned: score }),
-      credentials: "include", // Include cookies in request
-    });
-
-    if (response.ok) {
-      alert(`Quiz complete! You earned a total of ${score} coins!`);
-      window.location.href = "/userarea.html";
-    } else if (response.status === 403) {
-      // Handle token expiration by attempting refresh
-      await refreshTokenAndRetry();
-    } else {
-      console.error("Failed to submit quiz:", await response.json());
-      alert("Failed to submit quiz. Please try again.");
-    }
-  } catch (error) {
-    console.error("Error submitting quiz:", error);
-  }
-}
-
-// Token refresh function
-async function refreshTokenAndRetry() {
-  try {
-    const refreshResponse = await fetch(`${baseUrl}/api/users/refresh`, {
-      method: "POST",
-      credentials: "include", // Send cookies with request
-    });
-
-    if (refreshResponse.ok) {
-      const data = await refreshResponse.json();
-      localStorage.setItem("token", data.token); // Update token
-      await submitQuiz(); // Retry quiz submission with new token
-    } else {
-      alert("Session expired. Please log in again.");
-      localStorage.removeItem("token");
-      window.location.href = "/login.html";
-    }
-  } catch (error) {
-    console.error("Error refreshing token:", error);
-  }
-}
 
 // Helper function to get query parameters from URL
 function getQueryVariable(variable) {
@@ -166,6 +117,7 @@ function checkAnswer(selectedAnswer, correctAnswer) {
     if (selectedAnswer === correctAnswer) {
       score += 200;
       notificationElement.textContent = "Correct! You earned 200 coins!";
+      updateCoinsDisplay(score); // Update the displayed coin count
     } else {
       notificationElement.textContent = "Wrong answer!";
     }
@@ -178,6 +130,14 @@ function checkAnswer(selectedAnswer, correctAnswer) {
   }
 }
 
+// Update the coins display element
+function updateCoinsDisplay(coins) {
+  const coinsCountElement = document.querySelector(".coins-count");
+  if (coinsCountElement) {
+    coinsCountElement.textContent = coins;
+  }
+}
+
 // Load the next quiz question or submit if finished
 function loadNextQuiz() {
   currentIndex++;
@@ -185,5 +145,48 @@ function loadNextQuiz() {
     showQuestion(currentIndex);
   } else {
     submitQuiz();
+  }
+}
+
+// Submit quiz and update coins
+async function submitQuiz() {
+  clearInterval(timerInterval);
+  const token = localStorage.getItem("token");
+
+  // Check if token is missing
+  if (!token) {
+    console.error("No token found in localStorage.");
+    alert("Session expired. Please log in again.");
+    window.location.href = "/login.html";
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/quizzes/complete-quiz",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ coinsEarned: score }),
+      }
+    );
+
+    if (response.ok) {
+      alert(`Quiz complete! You earned a total of ${score} coins!`);
+      window.location.href = "/userarea.html";
+    } else if (response.status === 403) {
+      alert("Session expired. Please log in again.");
+      localStorage.removeItem("token"); // Clear expired token
+      window.location.href = "/login.html";
+    } else {
+      const errorData = await response.json();
+      console.error("Failed to submit quiz:", errorData);
+      alert("Failed to submit quiz. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error submitting quiz:", error);
   }
 }
